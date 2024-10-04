@@ -14,19 +14,19 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
             var moves = new Dictionary<Coordinate, Move>();
             var coordinates = new List<Coordinate>()
             {
-                new(king.coordinate.x + 1, king.coordinate.y),
-                new(king.coordinate.x - 1, king.coordinate.y),
-                new(king.coordinate.x, king.coordinate.y + 1),
-                new(king.coordinate.x, king.coordinate.y - 1),
-                new(king.coordinate.x + 1, king.coordinate.y + 1),
-                new(king.coordinate.x + 1, king.coordinate.y - 1),
-                new(king.coordinate.x - 1, king.coordinate.y + 1),
-                new(king.coordinate.x - 1, king.coordinate.y - 1),
+                new(king.coordinate.X + 1, king.coordinate.Y),
+                new(king.coordinate.X - 1, king.coordinate.Y),
+                new(king.coordinate.X, king.coordinate.Y + 1),
+                new(king.coordinate.X, king.coordinate.Y - 1),
+                new(king.coordinate.X + 1, king.coordinate.Y + 1),
+                new(king.coordinate.X + 1, king.coordinate.Y - 1),
+                new(king.coordinate.X - 1, king.coordinate.Y + 1),
+                new(king.coordinate.X - 1, king.coordinate.Y - 1),
             };
 
             foreach (var coordinate in coordinates)
             {
-                bool isWithinBounds = coordinate.x >= 0 && coordinate.y >= 0 && coordinate.x < 8 && coordinate.y < 8;
+                bool isWithinBounds = coordinate.X >= 0 && coordinate.Y >= 0 && coordinate.X < 8 && coordinate.Y < 8;
                 if (!isWithinBounds)
                     continue;
 

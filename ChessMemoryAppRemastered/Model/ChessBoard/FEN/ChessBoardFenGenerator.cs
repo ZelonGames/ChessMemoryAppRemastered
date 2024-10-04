@@ -62,21 +62,21 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
             
             foreach (var row in pieceFen)
             {
-                pieceCoordinate.x = 0;
+                pieceCoordinate.X = 0;
                 foreach (char column in row)
                 {
                     if (char.IsLetter(column))
                     {
-                        var copiedCoordinate = new Coordinate(pieceCoordinate.x, pieceCoordinate.y);
+                        var copiedCoordinate = new Coordinate(pieceCoordinate.X, pieceCoordinate.Y);
                         pieces.Add(copiedCoordinate, FenHelper.InstantiatePieceFromFenChar(column, copiedCoordinate));
-                        pieceCoordinate.x++;
+                        pieceCoordinate.X++;
                     }
                     else if (char.IsDigit(column))
                     {
-                        pieceCoordinate.x += (int)char.GetNumericValue(column);
+                        pieceCoordinate.X += (int)char.GetNumericValue(column);
                     }
                 }
-                pieceCoordinate.y--;
+                pieceCoordinate.Y--;
             }
 
             return pieces.ToImmutableDictionary();

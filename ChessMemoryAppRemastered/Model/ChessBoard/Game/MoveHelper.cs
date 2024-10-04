@@ -44,7 +44,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
                 case Move.MoveType.EnPassant:
                     pieces.Add(legalMove.toCoordinate, movedPiece);
                     int direction = movedPiece.color == PlayerColor.White ? -1 : 1;
-                    var enPassantedSquare = new Coordinate(legalMove.toCoordinate.x, legalMove.toCoordinate.y + direction);
+                    var enPassantedSquare = new Coordinate(legalMove.toCoordinate.X, legalMove.toCoordinate.Y + direction);
                     pieces.Remove(enPassantedSquare);
                     break;
                 case Move.MoveType.WhiteKingSideCastle:
@@ -115,19 +115,19 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             if (movingPiece is Rook)
             {
                 if (movingPiece.color == PlayerColor.White &&
-                    movingPiece.coordinate.y == 0)
+                    movingPiece.coordinate.Y == 0)
                 {
-                    if (movingPiece.coordinate.x == 7)
+                    if (movingPiece.coordinate.X == 7)
                         allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.WhiteKingSide);
-                    else if (movingPiece.coordinate.x == 0)
+                    else if (movingPiece.coordinate.X == 0)
                         allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.WhiteQueenSide);
                 }
                 else if (movingPiece.color == PlayerColor.Black &&
-                    movingPiece.coordinate.y == 7)
+                    movingPiece.coordinate.Y == 7)
                 {
-                    if (movingPiece.coordinate.x == 7)
+                    if (movingPiece.coordinate.X == 7)
                         allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.BlackKingSide);
-                    else if (movingPiece.coordinate.x == 0)
+                    else if (movingPiece.coordinate.X == 0)
                         allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.BlackQueenSide);
                 }
             }
@@ -167,16 +167,16 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
                 .Where(x => 
                 x.Value is Pawn &&
                 x.Value.color == movingPiece.GetEnemyColor() &&
-                x.Value.coordinate.y == legalMove.toCoordinate.y &&
-                (x.Value.coordinate.x == legalMove.toCoordinate.x + 1 ||
-                x.Value.coordinate.x == legalMove.toCoordinate.x - 1)).FirstOrDefault();
+                x.Value.coordinate.Y == legalMove.toCoordinate.Y &&
+                (x.Value.coordinate.X == legalMove.toCoordinate.X + 1 ||
+                x.Value.coordinate.X == legalMove.toCoordinate.X - 1)).FirstOrDefault();
 
             if (movingPiece is Pawn && legalMove.moveType == Move.MoveType.DoublePawnMove)
             {
                 if (enemyPawnNeighboor.Value != null)
                 {
                     int direction = movingPiece.color == PlayerColor.White ? 1 : -1;
-                    return new Coordinate(movingPiece.coordinate.x, movingPiece.coordinate.y + direction);
+                    return new Coordinate(movingPiece.coordinate.X, movingPiece.coordinate.Y + direction);
                 }
             }
 

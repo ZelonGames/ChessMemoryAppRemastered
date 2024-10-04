@@ -16,9 +16,9 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
             var moves = new Dictionary<Coordinate, Move>();
 
             // Right Up
-            for (int x = 1; bishop.coordinate.x + x < 8 && bishop.coordinate.y + x < 8; x++)
+            for (int x = 1; bishop.coordinate.X + x < 8 && bishop.coordinate.Y + x < 8; x++)
             {
-                var coordinate = new Coordinate(bishop.coordinate.x + x, bishop.coordinate.y + x);
+                var coordinate = new Coordinate(bishop.coordinate.X + x, bishop.coordinate.Y + x);
                 if (chessBoardState.Pieces.TryGetValue(coordinate, out Piece? piece))
                 {
                     if (piece.color != bishop.color)
@@ -31,9 +31,9 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
             }
 
             // Right Down
-            for (int x = 1; bishop.coordinate.x + x < 8 && bishop.coordinate.y - x > 0; x++)
+            for (int x = 1; bishop.coordinate.X + x < 8 && bishop.coordinate.Y - x > 0; x++)
             {
-                var coordinate = new Coordinate(bishop.coordinate.x + x, bishop.coordinate.y - x);
+                var coordinate = new Coordinate(bishop.coordinate.X + x, bishop.coordinate.Y - x);
                 if (chessBoardState.Pieces.TryGetValue(coordinate, out Piece? piece))
                 {
                     if (piece.color != bishop.color)
@@ -46,9 +46,9 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
             }
 
             // Left Down
-            for (int x = -1; bishop.coordinate.x + x > 0 && bishop.coordinate.y + x > 0; x--)
+            for (int x = -1; bishop.coordinate.X + x > 0 && bishop.coordinate.Y + x > 0; x--)
             {
-                var coordinate = new Coordinate(bishop.coordinate.x + x, bishop.coordinate.y + x);
+                var coordinate = new Coordinate(bishop.coordinate.X + x, bishop.coordinate.Y + x);
                 if (chessBoardState.Pieces.TryGetValue(coordinate, out Piece? piece))
                 {
                     if (piece.color != bishop.color)
@@ -61,9 +61,9 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
             }
 
             // Left Up
-            for (int x = -1; bishop.coordinate.x + x > 0 && bishop.coordinate.y - x < 8; x--)
+            for (int x = -1; bishop.coordinate.X + x > 0 && bishop.coordinate.Y - x < 8; x--)
             {
-                var coordinate = new Coordinate(bishop.coordinate.x + x, bishop.coordinate.y - x);
+                var coordinate = new Coordinate(bishop.coordinate.X + x, bishop.coordinate.Y - x);
                 if (chessBoardState.Pieces.TryGetValue(coordinate, out Piece? piece))
                 {
                     if (piece.color != bishop.color)
