@@ -17,7 +17,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
             BlackQueenSide,
         }
 
-        public ImmutableHashSet<CastlingMove> allowedKingCastlingMoves;
+        public readonly ImmutableHashSet<CastlingMove> allowedKingCastlingMoves;
 
         public CastlingState(ImmutableHashSet<CastlingMove> allowedKingCastlingMoves)
         {

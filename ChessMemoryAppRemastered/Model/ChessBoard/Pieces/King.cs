@@ -37,7 +37,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
                 }
                 else
                 {
-                    ChessBoardState.PlayerColor enemyColor = king.GetEnemyColor();
+                    PlayerColor enemyColor = king.GetEnemyColor();
                     var territory = new TerritoryState(chessBoardState, enemyColor);
                     if (!territory.controlledSquares.ContainsKey(coordinate))
                         moves.Add(coordinate, new Move(Move.MoveType.Movement, coordinate));
@@ -48,28 +48,28 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
             Coordinate castlingCoordinate;
 
             if (allowedCastlingMoves.Contains(CastlingState.CastlingMove.WhiteKingSide) &&
-                king.color == ChessBoardState.PlayerColor.White)
+                king.color == PlayerColor.White)
             {
                 castlingCoordinate = new Coordinate(6, 0);
                 if (CastlingEvaluator.CanCastleKingSide(chessBoardState, king))
                     moves.Add(castlingCoordinate, new Move(Move.MoveType.WhiteKingSideCastle, castlingCoordinate));
             }
             else if (allowedCastlingMoves.Contains(CastlingState.CastlingMove.WhiteQueenSide) &&
-                king.color == ChessBoardState.PlayerColor.White)
+                king.color == PlayerColor.White)
             {
                 castlingCoordinate = new Coordinate(2, 0);
                 if (CastlingEvaluator.CanCastleQueenSide(chessBoardState, king))
                     moves.Add(castlingCoordinate, new Move(Move.MoveType.WhiteQueenSideCastle, castlingCoordinate));
             }
             else if (allowedCastlingMoves.Contains(CastlingState.CastlingMove.BlackKingSide) &&
-                king.color == ChessBoardState.PlayerColor.Black)
+                king.color == PlayerColor.Black)
             {
                 castlingCoordinate = new Coordinate(6, 7);
                 if (CastlingEvaluator.CanCastleKingSide(chessBoardState, king))
                     moves.Add(castlingCoordinate, new Move(Move.MoveType.BlackKingSideCastle, castlingCoordinate));
             }
             else if (allowedCastlingMoves.Contains(CastlingState.CastlingMove.BlackQueenSide) &&
-                king.color == ChessBoardState.PlayerColor.Black)
+                king.color == PlayerColor.Black)
             {
                 castlingCoordinate = new Coordinate(2, 7);
                 if (CastlingEvaluator.CanCastleQueenSide(chessBoardState, king))

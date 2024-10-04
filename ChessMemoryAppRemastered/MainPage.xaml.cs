@@ -22,7 +22,7 @@ namespace ChessMemoryAppRemastered
 
             var fenHistory = new List<string>();
             ChessBoardState chessBoardState = ChessBoardFenGenerator.Generate("r2qkb1r/1bpp1ppp/2n2n2/pp2P3/4P3/1B3N2/PPP2PPP/RNBQK1R1 b Qkq - 0 8");
-            string fen = chessBoardState.ConvertToFenString();
+            string fen = FenHelper.ConvertToFenString(chessBoardState);
             fenHistory.Add(fen);
             foreach (var potentialMove in moves)
             {
@@ -30,7 +30,7 @@ namespace ChessMemoryAppRemastered
                 {
                     var move = new LegalMove(chessBoardState, potentialMove.fromCoordinate, potentialMove.toCoordinate);
                     chessBoardState = MoveHelper.GetNextStateFromMove(move);
-                    fen = chessBoardState.ConvertToFenString();
+                    fen = FenHelper.ConvertToFenString(chessBoardState);
                     fenHistory.Add(fen);
                 }
                 catch (MoveException ex)

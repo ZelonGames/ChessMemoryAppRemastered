@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ChessMemoryAppRemastered.Model
 {
-    public record struct Coordinate(int x, int y)
+    public record struct Coordinate(int X, int Y)
     {
         public readonly string ToAlphabeticCoordinate()
         {
             string rows = "abcdefgh";
 
-            return rows[x].ToString() + (y + 1);
+            return rows[X].ToString() + (Y + 1);
         }
     }
 }

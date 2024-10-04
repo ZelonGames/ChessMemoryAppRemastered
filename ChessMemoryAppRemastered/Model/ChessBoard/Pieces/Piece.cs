@@ -9,15 +9,15 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
     public abstract record Piece
     {
         public required Coordinate coordinate;
-        public required ChessBoardState.PlayerColor color;
+        public required PlayerColor color;
         public abstract Dictionary<Coordinate, Move> GetLegalMoves(ChessBoardState chessBoardState);
 
-        public ChessBoardState.PlayerColor GetEnemyColor()
+        public PlayerColor GetEnemyColor()
         {
-            if (color == ChessBoardState.PlayerColor.White)
-                return ChessBoardState.PlayerColor.Black;
+            if (color == PlayerColor.White)
+                return PlayerColor.Black;
 
-            return ChessBoardState.PlayerColor.White;
+            return PlayerColor.White;
         }
     }
 }

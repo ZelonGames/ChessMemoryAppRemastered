@@ -19,22 +19,10 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
             foreach (var c in fenCastlingState)
             {
                 if (char.IsLetter(c))
-                    allowedKingCastlingMoves.Add(GetStateFromFenChar(c));
+                    allowedKingCastlingMoves.Add(FenHelper.GetStateFromFenChar(c));
             }
 
-            castlingState = new CastlingState(allowedKingCastlingMoves.ToImmutableHashSet());
-        }
-
-        private static CastlingState.CastlingMove GetStateFromFenChar(char c)
-        {
-            return c switch
-            {
-                'K' => CastlingState.CastlingMove.WhiteKingSide,
-                'Q' => CastlingState.CastlingMove.WhiteQueenSide,
-                'k' => CastlingState.CastlingMove.BlackKingSide,
-                'q' => CastlingState.CastlingMove.BlackQueenSide,
-                _ => throw new NotImplementedException(),
-            };
+            castlingState = new CastlingState([.. allowedKingCastlingMoves]);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
                     break;
                 case Move.MoveType.EnPassant:
                     pieces.Add(legalMove.toCoordinate, movedPiece);
-                    int direction = movedPiece.color == ChessBoardState.PlayerColor.White ? -1 : 1;
+                    int direction = movedPiece.color == PlayerColor.White ? -1 : 1;
                     var enPassantedSquare = new Coordinate(legalMove.toCoordinate.x, legalMove.toCoordinate.y + direction);
                     pieces.Remove(enPassantedSquare);
                     break;
@@ -102,7 +102,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             return pieces.ToImmutableDictionary();
         }
 
-        private static ChessBoardState.PlayerColor GetUpdatedPlayerColor(LegalMove legalMove)
+        private static PlayerColor GetUpdatedPlayerColor(LegalMove legalMove)
         {
             Piece movingPiece = legalMove.GetPieceToMove();
             return movingPiece.GetEnemyColor();
@@ -114,7 +114,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             var allowedKingCastlingMoves = new HashSet<CastlingState.CastlingMove>(legalMove.chessBoardState.CastlingState.allowedKingCastlingMoves);
             if (movingPiece is Rook)
             {
-                if (movingPiece.color == ChessBoardState.PlayerColor.White &&
+                if (movingPiece.color == PlayerColor.White &&
                     movingPiece.coordinate.y == 0)
                 {
                     if (movingPiece.coordinate.x == 7)
@@ -122,7 +122,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
                     else if (movingPiece.coordinate.x == 0)
                         allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.WhiteQueenSide);
                 }
-                else if (movingPiece.color == ChessBoardState.PlayerColor.Black &&
+                else if (movingPiece.color == PlayerColor.Black &&
                     movingPiece.coordinate.y == 7)
                 {
                     if (movingPiece.coordinate.x == 7)
@@ -133,7 +133,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             }
             else if (movingPiece is King)
             {
-                if (movingPiece.color == ChessBoardState.PlayerColor.White)
+                if (movingPiece.color == PlayerColor.White)
                 {
                     allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.WhiteQueenSide);
                     allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.WhiteKingSide);
@@ -151,7 +151,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
         private static int GetUpdatedFullMove(LegalMove legalMove)
         {
             Piece movingPiece = legalMove.GetPieceToMove();
-            if (movingPiece.color == ChessBoardState.PlayerColor.Black)
+            if (movingPiece.color == PlayerColor.Black)
                 return legalMove.chessBoardState.FullMoves + 1;
             return legalMove.chessBoardState.FullMoves;
         }
@@ -175,7 +175,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             {
                 if (enemyPawnNeighboor.Value != null)
                 {
-                    int direction = movingPiece.color == ChessBoardState.PlayerColor.White ? 1 : -1;
+                    int direction = movingPiece.color == PlayerColor.White ? 1 : -1;
                     return new Coordinate(movingPiece.coordinate.x, movingPiece.coordinate.y + direction);
                 }
             }

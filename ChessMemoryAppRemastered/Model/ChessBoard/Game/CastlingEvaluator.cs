@@ -12,7 +12,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
         public static bool CanCastleKingSide(ChessBoardState chessBoardState, Piece king)
         {
             var territoryState = new TerritoryState(chessBoardState, king.GetEnemyColor());
-            int playerSide = king.color == ChessBoardState.PlayerColor.White ? 0 : 7;
+            int playerSide = king.color == PlayerColor.White ? 0 : 7;
             var kingSideTerritorySquares = new List<Coordinate>
             {
                 new(5, playerSide),
@@ -38,7 +38,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
         public static bool CanCastleQueenSide(ChessBoardState chessBoardState, Piece king)
         {
             var territoryState = new TerritoryState(chessBoardState, king.GetEnemyColor());
-            int playerSide = king.color == ChessBoardState.PlayerColor.White ? 0 : 7;
+            int playerSide = king.color == PlayerColor.White ? 0 : 7;
             var queenSideTerritorySquares = new List<Coordinate>
             {
                 new(3, playerSide),

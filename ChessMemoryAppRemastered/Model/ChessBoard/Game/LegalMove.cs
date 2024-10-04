@@ -12,14 +12,14 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
         public readonly ChessBoardState chessBoardState;
         private readonly Coordinate fromCoordinate;
         public readonly Coordinate toCoordinate;
-        public readonly Pieces.Move.MoveType moveType;
+        public readonly Move.MoveType moveType;
 
         public LegalMove(ChessBoardState chessBoardState, Coordinate fromCoordinate, Coordinate toCoordinate)
         {
             this.chessBoardState = chessBoardState;
             this.fromCoordinate = fromCoordinate;
             this.toCoordinate = toCoordinate;
-            Dictionary<Coordinate, Pieces.Move> legalMoves = chessBoardState.Pieces[fromCoordinate].GetLegalMoves(chessBoardState);
+            Dictionary<Coordinate, Move> legalMoves = chessBoardState.Pieces[fromCoordinate].GetLegalMoves(chessBoardState);
 
             if (!chessBoardState.Pieces.ContainsKey(fromCoordinate))
                 throw new PieceNotFoundException();

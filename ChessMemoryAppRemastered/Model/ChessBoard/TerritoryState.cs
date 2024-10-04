@@ -12,28 +12,28 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
         private readonly ChessBoardState chessBoardState;
         public readonly Dictionary<Coordinate, int> controlledSquares;
 
-        public TerritoryState(ChessBoardState chessBoardState, ChessBoardState.PlayerColor color)
+        public TerritoryState(ChessBoardState chessBoardState, PlayerColor color)
         {
             this.chessBoardState = chessBoardState;
             controlledSquares = GetControlledSquaresFromColor(color);
         }
 
-        private Dictionary<Coordinate, int> GetControlledSquaresFromColor(ChessBoardState.PlayerColor color)
+        private Dictionary<Coordinate, int> GetControlledSquaresFromColor(PlayerColor color)
         {
             var controlledSquares = new Dictionary<Coordinate, int>();
-            var piecesOfColor = chessBoardState.Pieces.Where(x => x.Value.color == color && x.Value.GetType() != typeof(King));
+            var piecesOfColor = chessBoardState.Pieces.Values.Where(x => x.color == color && x is not King);
 
             foreach (var piece in piecesOfColor)
             {
-                foreach (var controlledSquare in piece.Value.GetLegalMoves(chessBoardState))
+                foreach (var controlledSquare in piece.GetLegalMoves(chessBoardState).Values)
                 {
-                    if (controlledSquare.Value.moveType is not Move.MoveType.Movement or Move.MoveType.Capture)
+                    if (controlledSquare.moveType is not Move.MoveType.Movement or Move.MoveType.Capture)
                         continue;
 
-                    if (controlledSquares.ContainsKey(controlledSquare.Value.coordinate))
-                        controlledSquares[controlledSquare.Value.coordinate]++;
+                    if (controlledSquares.ContainsKey(controlledSquare.coordinate))
+                        controlledSquares[controlledSquare.coordinate]++;
                     else
-                        controlledSquares.Add(controlledSquare.Value.coordinate, 1);
+                        controlledSquares.Add(controlledSquare.coordinate, 1);
                 }
             }
 
