@@ -14,16 +14,16 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
         {
             return new ChessBoardState
             (
-                new PiecesState() { Pieces = GetUpdatedPiecesAfterMove(legalMove) },
-                GetUpdatedPlayerColor(legalMove),
-                GetUpdatedCastlingState(legalMove),
-                GetUpdatedEnPassantSquare(legalMove),
-                GetUpdatedFiftyMoveRule(legalMove),
-                GetUpdatedFullMove(legalMove)
+                new PiecesState() { Pieces = GetUpdatedPiecesFromMove(legalMove) },
+                GetUpdatedPlayerColorFromMove(legalMove),
+                GetUpdatedCastlingStateFromMove(legalMove),
+                GetUpdatedEnPassantSquareFromMove(legalMove),
+                GetUpdatedFiftyMoveRuleFromMove(legalMove),
+                GetUpdatedFullMoveFromMove(legalMove)
             );
         }
 
-        private static Dictionary<Coordinate, Piece> GetUpdatedPiecesAfterMove(LegalMove legalMove)
+        private static Dictionary<Coordinate, Piece> GetUpdatedPiecesFromMove(LegalMove legalMove)
         {
             Piece piece = legalMove.GetPieceToMove();
             Dictionary<Coordinate, Piece> pieces = legalMove.chessBoardState.PiecesState.Pieces.ToDictionary();
@@ -121,13 +121,13 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             return pieces;
         }
 
-        private static PlayerColor GetUpdatedPlayerColor(LegalMove legalMove)
+        private static PlayerColor GetUpdatedPlayerColorFromMove(LegalMove legalMove)
         {
             Piece movingPiece = legalMove.GetPieceToMove();
             return movingPiece.GetEnemyColor();
         }
 
-        private static CastlingState GetUpdatedCastlingState(LegalMove legalMove)
+        private static CastlingState GetUpdatedCastlingStateFromMove(LegalMove legalMove)
         {
             Piece movingPiece = legalMove.GetPieceToMove();
             var allowedKingCastlingMoves = new HashSet<CastlingMove>(legalMove.chessBoardState.CastlingState.AllowedKingCastlingMoves);
@@ -167,7 +167,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             return new CastlingState() { AllowedKingCastlingMoves = allowedKingCastlingMoves };
         }
 
-        private static int GetUpdatedFullMove(LegalMove legalMove)
+        private static int GetUpdatedFullMoveFromMove(LegalMove legalMove)
         {
             Piece movingPiece = legalMove.GetPieceToMove();
             if (movingPiece.color == PlayerColor.Black)
@@ -175,7 +175,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             return legalMove.chessBoardState.FullMoves;
         }
 
-        private static Coordinate? GetUpdatedEnPassantSquare(LegalMove legalMove)
+        private static Coordinate? GetUpdatedEnPassantSquareFromMove(LegalMove legalMove)
         {
             if (legalMove.chessBoardState.EnpassantTarget != null)
                 return null;
@@ -202,7 +202,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             return null;
         }
 
-        private static int GetUpdatedFiftyMoveRule(LegalMove legalMove)
+        private static int GetUpdatedFiftyMoveRuleFromMove(LegalMove legalMove)
         {
             Piece movingPiece = legalMove.GetPieceToMove();
 
