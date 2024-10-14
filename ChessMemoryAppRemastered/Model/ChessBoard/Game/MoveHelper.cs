@@ -29,6 +29,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             Dictionary<Coordinate, Piece> pieces = legalMove.chessBoardState.PiecesState.Pieces.ToDictionary();
             Piece movedPiece = piece with { coordinate = legalMove.toCoordinate };
 
+            #region Move Piece
             pieces.Remove(piece.coordinate);
 
             switch (legalMove.moveType)
@@ -74,10 +75,11 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
                 default:
                     break;
             }
+            #endregion
 
-            // Remove the piece that you just moved because it will be replaced with the promoted piece
+            #region Promote Piece
             if (legalMove.promotionType is not Move.Promotion.None)
-                pieces.Remove(legalMove.toCoordinate);
+                pieces.Remove(movedPiece.coordinate);
 
             switch (legalMove.promotionType)
             {
@@ -114,6 +116,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
                 default:
                     break;
             }
+            #endregion
 
             return pieces;
         }
