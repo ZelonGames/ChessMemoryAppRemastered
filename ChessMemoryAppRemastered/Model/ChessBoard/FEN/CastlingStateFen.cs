@@ -15,14 +15,14 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
         {
             string fenCastlingState = fen.Split(' ')[2];
 
-            var allowedKingCastlingMoves = new HashSet<CastlingState.CastlingMove>();
+            var allowedKingCastlingMoves = new HashSet<CastlingMove>();
             foreach (var c in fenCastlingState)
             {
                 if (char.IsLetter(c))
                     allowedKingCastlingMoves.Add(FenHelper.GetStateFromFenChar(c));
             }
 
-            castlingState = new CastlingState([.. allowedKingCastlingMoves]);
+            castlingState = new CastlingState() { AllowedKingCastlingMoves = allowedKingCastlingMoves };
         }
     }
 }

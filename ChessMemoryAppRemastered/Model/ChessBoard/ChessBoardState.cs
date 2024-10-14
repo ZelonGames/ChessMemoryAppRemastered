@@ -13,8 +13,8 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
         White,
         Black
     }
-    public record ChessBoardState(
-        ImmutableDictionary<Coordinate, Piece> Pieces,
+    public record struct ChessBoardState(
+        PiecesState PiecesState,
         PlayerColor CurrentTurn,
         CastlingState CastlingState,
         Coordinate? EnpassantTarget,

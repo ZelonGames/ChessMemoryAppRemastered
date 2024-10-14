@@ -15,53 +15,53 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
             for (int y = rook.coordinate.Y + 1; y < 8; y++)
             {
                 var nextCoordinate = new Coordinate(rook.coordinate.X, y);
-                if (chessBoardState.Pieces.TryGetValue(nextCoordinate, out Piece? piece))
+                if (chessBoardState.PiecesState.Pieces.TryGetValue(nextCoordinate, out Piece? piece))
                 {
                     if (piece.color != rook.color)
-                        moves.Add(nextCoordinate, new Move(Move.MoveType.Capture, nextCoordinate));
+                        moves.Add(nextCoordinate, new Move(Move.Type.Capture, nextCoordinate));
                     break;
                 }
                 else
-                    moves.Add(nextCoordinate, new Move(Move.MoveType.Movement, nextCoordinate));
+                    moves.Add(nextCoordinate, new Move(Move.Type.Movement, nextCoordinate));
             }
 
-            for (int y = rook.coordinate.Y - 1; y > 0; y--)
+            for (int y = rook.coordinate.Y - 1; y >= 0; y--)
             {
                 var nextCoordinate = new Coordinate(rook.coordinate.X, y);
-                if (chessBoardState.Pieces.TryGetValue(nextCoordinate, out Piece? piece))
+                if (chessBoardState.PiecesState.Pieces.TryGetValue(nextCoordinate, out Piece? piece))
                 {
                     if (piece.color != rook.color)
-                        moves.Add(nextCoordinate, new Move(Move.MoveType.Capture, nextCoordinate));
+                        moves.Add(nextCoordinate, new Move(Move.Type.Capture, nextCoordinate));
                     break;
                 }
                 else
-                    moves.Add(nextCoordinate, new Move(Move.MoveType.Movement, nextCoordinate));
+                    moves.Add(nextCoordinate, new Move(Move.Type.Movement, nextCoordinate));
             }
 
             for (int x = rook.coordinate.X + 1; x < 8; x++)
             {
                 var nextCoordinate = new Coordinate(x, rook.coordinate.Y);
-                if (chessBoardState.Pieces.ContainsKey(nextCoordinate))
+                if (chessBoardState.PiecesState.Pieces.ContainsKey(nextCoordinate))
                 {
-                    if (chessBoardState.Pieces[nextCoordinate].color != rook.color)
-                        moves.Add(nextCoordinate, new Move(Move.MoveType.Capture, nextCoordinate));
+                    if (chessBoardState.PiecesState.Pieces[nextCoordinate].color != rook.color)
+                        moves.Add(nextCoordinate, new Move(Move.Type.Capture, nextCoordinate));
                     break;
                 }
                 else
-                    moves.Add(nextCoordinate, new Move(Move.MoveType.Movement, nextCoordinate));
+                    moves.Add(nextCoordinate, new Move(Move.Type.Movement, nextCoordinate));
             }
 
-            for (int x = rook.coordinate.X - 1; x > 0; x--)
+            for (int x = rook.coordinate.X - 1; x >= 0; x--)
             {
                 var nextCoordinate = new Coordinate(x, rook.coordinate.Y);
-                if (chessBoardState.Pieces.ContainsKey(nextCoordinate))
+                if (chessBoardState.PiecesState.Pieces.ContainsKey(nextCoordinate))
                 {
-                    if (chessBoardState.Pieces[nextCoordinate].color != rook.color)
-                        moves.Add(nextCoordinate, new Move(Move.MoveType.Capture, nextCoordinate));
+                    if (chessBoardState.PiecesState.Pieces[nextCoordinate].color != rook.color)
+                        moves.Add(nextCoordinate, new Move(Move.Type.Capture, nextCoordinate));
                     break;
                 }
                 else
-                    moves.Add(nextCoordinate, new Move(Move.MoveType.Movement, nextCoordinate));
+                    moves.Add(nextCoordinate, new Move(Move.Type.Movement, nextCoordinate));
             }
 
             return moves;

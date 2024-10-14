@@ -19,7 +19,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
                 new(6, playerSide),
             };
 
-            if (chessBoardState.Pieces.TryGetValue(new Coordinate(7, playerSide), out Piece? piece))
+            if (chessBoardState.PiecesState.Pieces.TryGetValue(new Coordinate(7, playerSide), out Piece? piece))
             {
                 if (piece is not Rook || piece.color != king.color)
                     return false;
@@ -29,7 +29,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
 
             if (kingSideTerritorySquares.Any(territoryState.controlledSquares.ContainsKey))
                 return false;
-            if (kingSideTerritorySquares.Any(chessBoardState.Pieces.ContainsKey))
+            if (kingSideTerritorySquares.Any(chessBoardState.PiecesState.Pieces.ContainsKey))
                 return false;
 
             return true;
@@ -46,12 +46,12 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             };
             var queenSidePieceSquares = new List<Coordinate>
             {
+                new(1, playerSide),
                 new(2, playerSide),
                 new(3, playerSide),
-                new(4, playerSide),
             };
 
-            if (chessBoardState.Pieces.TryGetValue(new Coordinate(7, playerSide), out Piece? piece))
+            if (chessBoardState.PiecesState.Pieces.TryGetValue(new Coordinate(7, playerSide), out Piece? piece))
             {
                 if (piece is not Rook || piece.color != king.color)
                     return false;
@@ -61,7 +61,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
 
             if (queenSideTerritorySquares.Any(territoryState.controlledSquares.ContainsKey))
                 return false;
-            if (queenSidePieceSquares.Any(chessBoardState.Pieces.ContainsKey))
+            if (queenSidePieceSquares.Any(chessBoardState.PiecesState.Pieces.ContainsKey))
                 return false;
 
             return true;

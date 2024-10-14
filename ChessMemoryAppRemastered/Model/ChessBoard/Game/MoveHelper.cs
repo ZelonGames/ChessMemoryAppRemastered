@@ -14,7 +14,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
         {
             return new ChessBoardState
             (
-                GetUpdatedPieces(legalMove),
+                new PiecesState() { Pieces = GetUpdatedPiecesAfterMove(legalMove) },
                 GetUpdatedPlayerColor(legalMove),
                 GetUpdatedCastlingState(legalMove),
                 GetUpdatedEnPassantSquare(legalMove),
@@ -23,83 +23,99 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             );
         }
 
-        private static ImmutableDictionary<Coordinate, Piece> GetUpdatedPieces(LegalMove legalMove)
+        private static Dictionary<Coordinate, Piece> GetUpdatedPiecesAfterMove(LegalMove legalMove)
         {
             Piece piece = legalMove.GetPieceToMove();
-            Dictionary<Coordinate, Piece> pieces = legalMove.chessBoardState.Pieces.ToDictionary();
+            Dictionary<Coordinate, Piece> pieces = legalMove.chessBoardState.PiecesState.Pieces.ToDictionary();
             Piece movedPiece = piece with { coordinate = legalMove.toCoordinate };
 
             pieces.Remove(piece.coordinate);
 
             switch (legalMove.moveType)
             {
-                case Move.MoveType.Movement:
-                case Move.MoveType.DoublePawnMove:
+                case Move.Type.Movement:
+                case Move.Type.DoublePawnMove:
                     pieces.Add(legalMove.toCoordinate, movedPiece);
                     break;
-                case Move.MoveType.Capture:
+                case Move.Type.Capture:
                     pieces.Remove(legalMove.toCoordinate);
                     pieces.Add(legalMove.toCoordinate, movedPiece);
                     break;
-                case Move.MoveType.EnPassant:
+                case Move.Type.EnPassant:
                     pieces.Add(legalMove.toCoordinate, movedPiece);
                     int direction = movedPiece.color == PlayerColor.White ? -1 : 1;
                     var enPassantedSquare = new Coordinate(legalMove.toCoordinate.X, legalMove.toCoordinate.Y + direction);
                     pieces.Remove(enPassantedSquare);
                     break;
-                case Move.MoveType.WhiteKingSideCastle:
+                case Move.Type.WhiteKingSideCastle:
                     pieces.Add(legalMove.toCoordinate, movedPiece);
                     pieces.Remove(new Coordinate(7, 0), out Piece? whiteKingSideRook);
-                    pieces.Add(new Coordinate(5, 0), whiteKingSideRook!);
+                    whiteKingSideRook = whiteKingSideRook! with { coordinate = new Coordinate(5, 0) };
+                    pieces.Add(whiteKingSideRook.coordinate, whiteKingSideRook!);
                     break;
-                case Move.MoveType.WhiteQueenSideCastle:
+                case Move.Type.WhiteQueenSideCastle:
                     pieces.Add(legalMove.toCoordinate, movedPiece);
                     pieces.Remove(new Coordinate(0, 0), out Piece? whiteQueenSideRook);
-                    pieces.Add(new Coordinate(3, 0), whiteQueenSideRook!);
+                    whiteQueenSideRook = whiteQueenSideRook! with { coordinate = new Coordinate(3, 0) };
+                    pieces.Add(whiteQueenSideRook.coordinate, whiteQueenSideRook!);
                     break;
-                case Move.MoveType.BlackKingSideCastle:
+                case Move.Type.BlackKingSideCastle:
                     pieces.Add(legalMove.toCoordinate, movedPiece);
                     pieces.Remove(new Coordinate(7, 7), out Piece? blackKingSideRook);
-                    pieces.Add(new Coordinate(5, 7), blackKingSideRook!);
+                    blackKingSideRook = blackKingSideRook! with { coordinate = new Coordinate(5, 7) };
+                    pieces.Add(blackKingSideRook.coordinate, blackKingSideRook!);
                     break;
-                case Move.MoveType.BlackQueenSideCastle:
+                case Move.Type.BlackQueenSideCastle:
                     pieces.Add(legalMove.toCoordinate, movedPiece);
                     pieces.Remove(new Coordinate(0, 7), out Piece? blackQueenSideRook);
-                    pieces.Add(new Coordinate(3, 7), blackQueenSideRook!);
+                    blackQueenSideRook = blackQueenSideRook! with { coordinate = new Coordinate(3, 7) };
+                    pieces.Add(blackQueenSideRook.coordinate, blackQueenSideRook!);
                     break;
-                case Move.MoveType.PromotionRook:
-                    pieces.Add(legalMove.toCoordinate, new Rook() 
-                    { 
-                        color = movedPiece.color, 
-                        coordinate = movedPiece.coordinate 
+                default:
+                    break;
+            }
+
+            // Remove the piece that you just moved because it will be replaced with the promoted piece
+            if (legalMove.promotionType is not Move.Promotion.None)
+                pieces.Remove(legalMove.toCoordinate);
+
+            switch (legalMove.promotionType)
+            {
+                case Move.Promotion.Rook:
+                    pieces.Add(legalMove.toCoordinate, new Rook()
+                    {
+                        color = movedPiece.color,
+                        coordinate = movedPiece.coordinate
                     });
                     break;
-                case Move.MoveType.PromotionKnight:
+                case Move.Promotion.Knight:
                     pieces.Add(legalMove.toCoordinate, new Knight()
                     {
                         color = movedPiece.color,
                         coordinate = movedPiece.coordinate
                     });
                     break;
-                case Move.MoveType.PromotionBishop:
+                case Move.Promotion.Bishop:
                     pieces.Add(legalMove.toCoordinate, new Bishop()
                     {
                         color = movedPiece.color,
                         coordinate = movedPiece.coordinate
                     });
                     break;
-                case Move.MoveType.PromotionQueen:
+                case Move.Promotion.Queen:
                     pieces.Add(legalMove.toCoordinate, new Queen()
                     {
                         color = movedPiece.color,
                         coordinate = movedPiece.coordinate
                     });
                     break;
+                case Move.Promotion.None:
+                    break;
                 default:
                     break;
             }
 
-            return pieces.ToImmutableDictionary();
+            return pieces;
         }
 
         private static PlayerColor GetUpdatedPlayerColor(LegalMove legalMove)
@@ -111,41 +127,41 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
         private static CastlingState GetUpdatedCastlingState(LegalMove legalMove)
         {
             Piece movingPiece = legalMove.GetPieceToMove();
-            var allowedKingCastlingMoves = new HashSet<CastlingState.CastlingMove>(legalMove.chessBoardState.CastlingState.allowedKingCastlingMoves);
+            var allowedKingCastlingMoves = new HashSet<CastlingMove>(legalMove.chessBoardState.CastlingState.AllowedKingCastlingMoves);
             if (movingPiece is Rook)
             {
                 if (movingPiece.color == PlayerColor.White &&
                     movingPiece.coordinate.Y == 0)
                 {
                     if (movingPiece.coordinate.X == 7)
-                        allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.WhiteKingSide);
+                        allowedKingCastlingMoves.Remove(CastlingMove.WhiteKingSide);
                     else if (movingPiece.coordinate.X == 0)
-                        allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.WhiteQueenSide);
+                        allowedKingCastlingMoves.Remove(CastlingMove.WhiteQueenSide);
                 }
                 else if (movingPiece.color == PlayerColor.Black &&
                     movingPiece.coordinate.Y == 7)
                 {
                     if (movingPiece.coordinate.X == 7)
-                        allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.BlackKingSide);
+                        allowedKingCastlingMoves.Remove(CastlingMove.BlackKingSide);
                     else if (movingPiece.coordinate.X == 0)
-                        allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.BlackQueenSide);
+                        allowedKingCastlingMoves.Remove(CastlingMove.BlackQueenSide);
                 }
             }
             else if (movingPiece is King)
             {
                 if (movingPiece.color == PlayerColor.White)
                 {
-                    allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.WhiteQueenSide);
-                    allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.WhiteKingSide);
+                    allowedKingCastlingMoves.Remove(CastlingMove.WhiteQueenSide);
+                    allowedKingCastlingMoves.Remove(CastlingMove.WhiteKingSide);
                 }
                 else
                 {
-                    allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.BlackQueenSide);
-                    allowedKingCastlingMoves.Remove(CastlingState.CastlingMove.BlackKingSide);
+                    allowedKingCastlingMoves.Remove(CastlingMove.BlackQueenSide);
+                    allowedKingCastlingMoves.Remove(CastlingMove.BlackKingSide);
                 }
             }
 
-            return new CastlingState(allowedKingCastlingMoves.ToImmutableHashSet());
+            return new CastlingState() { AllowedKingCastlingMoves = allowedKingCastlingMoves };
         }
 
         private static int GetUpdatedFullMove(LegalMove legalMove)
@@ -163,15 +179,15 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
 
             Piece movingPiece = legalMove.GetPieceToMove();
 
-            var enemyPawnNeighboor = legalMove.chessBoardState.Pieces
-                .Where(x => 
+            var enemyPawnNeighboor = legalMove.chessBoardState.PiecesState.Pieces
+                .Where(x =>
                 x.Value is Pawn &&
                 x.Value.color == movingPiece.GetEnemyColor() &&
                 x.Value.coordinate.Y == legalMove.toCoordinate.Y &&
                 (x.Value.coordinate.X == legalMove.toCoordinate.X + 1 ||
                 x.Value.coordinate.X == legalMove.toCoordinate.X - 1)).FirstOrDefault();
 
-            if (movingPiece is Pawn && legalMove.moveType == Move.MoveType.DoublePawnMove)
+            if (movingPiece is Pawn && legalMove.moveType == Move.Type.DoublePawnMove)
             {
                 if (enemyPawnNeighboor.Value != null)
                 {
@@ -187,7 +203,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
         {
             Piece movingPiece = legalMove.GetPieceToMove();
 
-            if (legalMove.moveType == Move.MoveType.Capture || movingPiece is Pawn)
+            if (legalMove.moveType == Move.Type.Capture || movingPiece is Pawn)
                 return 0;
 
             return legalMove.chessBoardState.FiftyMoveRuleCounter + 1;

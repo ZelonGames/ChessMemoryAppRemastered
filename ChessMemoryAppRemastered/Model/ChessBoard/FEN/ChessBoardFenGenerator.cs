@@ -14,7 +14,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
         {
             string[] fenComponents = fen.Split(' ');
             string[] fenPieces = fenComponents[0].Split('/');
-            ImmutableDictionary<Coordinate, Piece> pieces = GeneratePiecesFromPieceFen(fenPieces);
+            Dictionary<Coordinate, Piece> pieces = GeneratePiecesFromPieceFen(fenPieces);
             PlayerColor playerColor = GetPlayerColorFromFenComponents(fenComponents);
             var castlingStateFen = new CastlingStateFen(fen);
             CastlingState castlingState = castlingStateFen.castlingState;
@@ -24,7 +24,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
 
             return new ChessBoardState
             (
-                pieces, 
+                new PiecesState() { Pieces = pieces}, 
                 playerColor, 
                 castlingState, 
                 enPassantTarget, 
@@ -54,7 +54,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
             return fenColor == 'w' ? PlayerColor.White : PlayerColor.Black;
         }
 
-        private static ImmutableDictionary<Coordinate, Piece> GeneratePiecesFromPieceFen(string[] pieceFen)
+        private static Dictionary<Coordinate, Piece> GeneratePiecesFromPieceFen(string[] pieceFen)
         {
             var pieces = new Dictionary<Coordinate, Piece>();
             // Start from top left corner and go down to bottom right
@@ -79,7 +79,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
                 pieceCoordinate.Y--;
             }
 
-            return pieces.ToImmutableDictionary();
+            return pieces;
         }
     }
 }

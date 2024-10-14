@@ -14,41 +14,46 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
             bool isPieceOnStartingSquare = IsPieceOnStartingSquare();
             Move moveToAdd;
 
-            moveToAdd = new Move(Move.MoveType.Movement, new Coordinate(coordinate.x, GetForwardYCoordinate(1)));
-            if (!chessBoardState.Pieces.ContainsKey(moveToAdd.coordinate))
+            moveToAdd = new Move(Move.Type.Movement, new Coordinate(coordinate.X, GetForwardYCoordinate(1)));
+
+            if (!chessBoardState.PiecesState.Pieces.ContainsKey(moveToAdd.coordinate))
+            {
                 moves.Add(moveToAdd.coordinate, moveToAdd);
 
-            if (isPieceOnStartingSquare)
-            {
-                moveToAdd = new Move(Move.MoveType.DoublePawnMove, new Coordinate(coordinate.x, GetForwardYCoordinate(2)));
-                if (!chessBoardState.Pieces.ContainsKey(moveToAdd.coordinate))
-                    moves.Add(moveToAdd.coordinate, moveToAdd);
+                if (isPieceOnStartingSquare)
+                {
+                    moveToAdd = new Move(Move.Type.DoublePawnMove, new Coordinate(coordinate.X, GetForwardYCoordinate(2)));
+                    if (!chessBoardState.PiecesState.Pieces.ContainsKey(moveToAdd.coordinate))
+                        moves.Add(moveToAdd.coordinate, moveToAdd);
+                }
             }
 
-            moveToAdd = new Move(Move.MoveType.Capture, new Coordinate(coordinate.x + 1, GetForwardYCoordinate(1)));
-            if (chessBoardState.Pieces.ContainsKey(moveToAdd.coordinate) &&
-                chessBoardState.Pieces[moveToAdd.coordinate].color != color)
+            moveToAdd = new Move(Move.Type.Capture, new Coordinate(coordinate.X + 1, GetForwardYCoordinate(1)));
+            if (chessBoardState.PiecesState.Pieces.ContainsKey(moveToAdd.coordinate) &&
+                chessBoardState.PiecesState.Pieces[moveToAdd.coordinate].color != color)
                 moves.Add(moveToAdd.coordinate, moveToAdd);
 
-            moveToAdd = new Move(Move.MoveType.Capture, new Coordinate(coordinate.x - 1, GetForwardYCoordinate(1)));
-            if (chessBoardState.Pieces.ContainsKey(moveToAdd.coordinate) &&
-                chessBoardState.Pieces[moveToAdd.coordinate].color != color)
+            moveToAdd = new Move(Move.Type.Capture, new Coordinate(coordinate.X - 1, GetForwardYCoordinate(1)));
+            if (chessBoardState.PiecesState.Pieces.ContainsKey(moveToAdd.coordinate) &&
+                chessBoardState.PiecesState.Pieces[moveToAdd.coordinate].color != color)
                 moves.Add(moveToAdd.coordinate, moveToAdd);
 
             if (chessBoardState.EnpassantTarget != null)
-                moves.Add(moveToAdd.coordinate, new Move(Move.MoveType.EnPassant, chessBoardState.EnpassantTarget.Value));
+                moves.Add(moveToAdd.coordinate, new Move(Move.Type.EnPassant, chessBoardState.EnpassantTarget.Value));
 
             return moves;
         }
 
+
+
         private bool IsPieceOnStartingSquare()
         {
-            return color == ChessBoardState.PlayerColor.White ? coordinate.y == 1 : coordinate.y == 6;
+            return color == PlayerColor.White ? coordinate.Y == 1 : coordinate.Y == 6;
         }
 
         private int GetForwardYCoordinate(int steps)
         {
-            return coordinate.y + (color == ChessBoardState.PlayerColor.White ? steps : -steps);
+            return coordinate.Y + (color == PlayerColor.White ? steps : -steps);
         }
     }
 }

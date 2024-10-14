@@ -21,13 +21,13 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
         private Dictionary<Coordinate, int> GetControlledSquaresFromColor(PlayerColor color)
         {
             var controlledSquares = new Dictionary<Coordinate, int>();
-            var piecesOfColor = chessBoardState.Pieces.Values.Where(x => x.color == color && x is not King);
+            var piecesOfColor = chessBoardState.PiecesState.Pieces.Values.Where(x => x.color == color && x is not King);
 
             foreach (var piece in piecesOfColor)
             {
                 foreach (var controlledSquare in piece.GetLegalMoves(chessBoardState).Values)
                 {
-                    if (controlledSquare.moveType is not Move.MoveType.Movement or Move.MoveType.Capture)
+                    if (controlledSquare.type is not Move.Type.Movement or Move.Type.Capture)
                         continue;
 
                     if (controlledSquares.ContainsKey(controlledSquare.coordinate))

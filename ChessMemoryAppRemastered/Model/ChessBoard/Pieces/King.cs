@@ -30,50 +30,50 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
                 if (!isWithinBounds)
                     continue;
 
-                if (chessBoardState.Pieces.TryGetValue(coordinate, out Piece? piece))
+                if (chessBoardState.PiecesState.Pieces.TryGetValue(coordinate, out Piece? piece))
                 {
                     if (piece.color != king.color)
-                        moves.Add(coordinate, new Move(Move.MoveType.Capture, coordinate));
+                        moves.Add(coordinate, new Move(Move.Type.Capture, coordinate));
                 }
                 else
                 {
                     PlayerColor enemyColor = king.GetEnemyColor();
                     var territory = new TerritoryState(chessBoardState, enemyColor);
                     if (!territory.controlledSquares.ContainsKey(coordinate))
-                        moves.Add(coordinate, new Move(Move.MoveType.Movement, coordinate));
+                        moves.Add(coordinate, new Move(Move.Type.Movement, coordinate));
                 }
             }
 
-            var allowedCastlingMoves = chessBoardState.CastlingState.allowedKingCastlingMoves;
+            var allowedCastlingMoves = chessBoardState.CastlingState.AllowedKingCastlingMoves;
             Coordinate castlingCoordinate;
 
-            if (allowedCastlingMoves.Contains(CastlingState.CastlingMove.WhiteKingSide) &&
+            if (allowedCastlingMoves.Contains(CastlingMove.WhiteKingSide) &&
                 king.color == PlayerColor.White)
             {
                 castlingCoordinate = new Coordinate(6, 0);
                 if (CastlingEvaluator.CanCastleKingSide(chessBoardState, king))
-                    moves.Add(castlingCoordinate, new Move(Move.MoveType.WhiteKingSideCastle, castlingCoordinate));
+                    moves.Add(castlingCoordinate, new Move(Move.Type.WhiteKingSideCastle, castlingCoordinate));
             }
-            else if (allowedCastlingMoves.Contains(CastlingState.CastlingMove.WhiteQueenSide) &&
+            if (allowedCastlingMoves.Contains(CastlingMove.WhiteQueenSide) &&
                 king.color == PlayerColor.White)
             {
                 castlingCoordinate = new Coordinate(2, 0);
                 if (CastlingEvaluator.CanCastleQueenSide(chessBoardState, king))
-                    moves.Add(castlingCoordinate, new Move(Move.MoveType.WhiteQueenSideCastle, castlingCoordinate));
+                    moves.Add(castlingCoordinate, new Move(Move.Type.WhiteQueenSideCastle, castlingCoordinate));
             }
-            else if (allowedCastlingMoves.Contains(CastlingState.CastlingMove.BlackKingSide) &&
+            if (allowedCastlingMoves.Contains(CastlingMove.BlackKingSide) &&
                 king.color == PlayerColor.Black)
             {
                 castlingCoordinate = new Coordinate(6, 7);
                 if (CastlingEvaluator.CanCastleKingSide(chessBoardState, king))
-                    moves.Add(castlingCoordinate, new Move(Move.MoveType.BlackKingSideCastle, castlingCoordinate));
+                    moves.Add(castlingCoordinate, new Move(Move.Type.BlackKingSideCastle, castlingCoordinate));
             }
-            else if (allowedCastlingMoves.Contains(CastlingState.CastlingMove.BlackQueenSide) &&
+            if (allowedCastlingMoves.Contains(CastlingMove.BlackQueenSide) &&
                 king.color == PlayerColor.Black)
             {
                 castlingCoordinate = new Coordinate(2, 7);
                 if (CastlingEvaluator.CanCastleQueenSide(chessBoardState, king))
-                    moves.Add(castlingCoordinate, new Move(Move.MoveType.BlackQueenSideCastle, castlingCoordinate));
+                    moves.Add(castlingCoordinate, new Move(Move.Type.BlackQueenSideCastle, castlingCoordinate));
             }
 
             return moves;

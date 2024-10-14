@@ -28,14 +28,14 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
             return pieceChar;
         }
 
-        public static CastlingState.CastlingMove GetStateFromFenChar(char c)
+        public static CastlingMove GetStateFromFenChar(char c)
         {
             return c switch
             {
-                'K' => CastlingState.CastlingMove.WhiteKingSide,
-                'Q' => CastlingState.CastlingMove.WhiteQueenSide,
-                'k' => CastlingState.CastlingMove.BlackKingSide,
-                'q' => CastlingState.CastlingMove.BlackQueenSide,
+                'K' => CastlingMove.WhiteKingSide,
+                'Q' => CastlingMove.WhiteQueenSide,
+                'k' => CastlingMove.BlackKingSide,
+                'q' => CastlingMove.BlackQueenSide,
                 _ => throw new NotImplementedException(),
             };
         }
@@ -68,7 +68,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
                 int spaces = 0;
                 for (int x = 0; x < 8; x++)
                 {
-                    if (chessBoardState.Pieces.TryGetValue(new Coordinate(x, y), out Piece? piece))
+                    if (chessBoardState.PiecesState.Pieces.TryGetValue(new Coordinate(x, y), out Piece? piece))
                     {
                         char pieceChar = GetFenPieceChar(piece);
                         if (piece is Knight)
@@ -98,23 +98,23 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
 
             for (int i = 0; i < 4; i++)
             {
-                if (!chessBoardState.CastlingState.allowedKingCastlingMoves.TryGetValue(
-                    (CastlingState.CastlingMove)i,
-                    out CastlingState.CastlingMove castlingRight))
+                if (!chessBoardState.CastlingState.AllowedKingCastlingMoves.TryGetValue(
+                    (CastlingMove)i,
+                    out CastlingMove castlingRight))
                     continue;
 
                 switch (castlingRight)
                 {
-                    case CastlingState.CastlingMove.WhiteQueenSide:
+                    case CastlingMove.WhiteQueenSide:
                         fen += "Q";
                         break;
-                    case CastlingState.CastlingMove.WhiteKingSide:
+                    case CastlingMove.WhiteKingSide:
                         fen += "K";
                         break;
-                    case CastlingState.CastlingMove.BlackQueenSide:
+                    case CastlingMove.BlackQueenSide:
                         fen += "q";
                         break;
-                    case CastlingState.CastlingMove.BlackKingSide:
+                    case CastlingMove.BlackKingSide:
                         fen += "k";
                         break;
                     default:

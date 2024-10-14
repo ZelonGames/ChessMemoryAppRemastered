@@ -57,9 +57,35 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Raw\chessMnemonicsNotations.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Pieces\bishop_black.png" />
+	  <MauiImage Include="Resources\Images\Pieces\bishop_white.png" />
+	  <MauiImage Include="Resources\Images\Pieces\king_black.png" />
+	  <MauiImage Include="Resources\Images\Pieces\king_white.png" />
+	  <MauiImage Include="Resources\Images\Pieces\knight_black.png" />
+	  <MauiImage Include="Resources\Images\Pieces\knight_white.png" />
+	  <MauiImage Include="Resources\Images\Pieces\pawn_black.png" />
+	  <MauiImage Include="Resources\Images\Pieces\pawn_white.png" />
+	  <MauiImage Include="Resources\Images\Pieces\queen_black.png" />
+	  <MauiImage Include="Resources\Images\Pieces\queen_white.png" />
+	  <MauiImage Include="Resources\Images\Pieces\rook_black.png" />
+	  <MauiImage Include="Resources\Images\Pieces\rook_white.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="MemoryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

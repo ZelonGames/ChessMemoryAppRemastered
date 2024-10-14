@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
 {
-    public record Move
+    public record struct Move
     {
-        public enum MoveType
+        public enum Type
         {
             Movement,
             DoublePawnMove,
@@ -24,13 +24,24 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
             PromotionQueen,
         }
 
-        public MoveType moveType;
-        public Coordinate coordinate;
-
-        public Move(MoveType type, Coordinate coordinate)
+        public enum Promotion
         {
-            this.moveType = type;
+            Rook,
+            Knight,
+            Bishop,
+            Queen,
+            None,
+        }
+
+        public Type type { get; init; }
+        public Coordinate coordinate { get; init; }
+        public Promotion promotion { get; init; }
+
+        public Move(Type type, Coordinate coordinate, Promotion promotion = Promotion.None)
+        {
+            this.type = type;
             this.coordinate = coordinate;
+            this.promotion = promotion;
         }
     }
 }
