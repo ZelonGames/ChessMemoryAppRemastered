@@ -103,7 +103,7 @@ namespace ChessMemoryAppRemastered.Model.UI_Components
             foreach (var oldPiece in  oldPiecesFromState)
             {
                 bool isPieceOld = newPiecesFromState.ContainsKey(oldPiece.Key);
-                bool isPieceDifferentType = isPieceOld && newPiecesFromState[oldPiece.Key].GetType() != oldPiece.Value.GetType();
+                bool isPieceDifferentType = isPieceOld && newPiecesFromState[oldPiece.Key] != oldPiece.Value;
 
                 if (!isPieceOld || isPieceDifferentType)
                     oldPieces.Add(oldPiece.Key, oldPiece.Value);
@@ -124,7 +124,7 @@ namespace ChessMemoryAppRemastered.Model.UI_Components
             foreach (var newPiece in newPiecesState)
             {
                 bool isPieceOld = oldPiecesState.ContainsKey(newPiece.Key);
-                bool isPieceDifferentType = isPieceOld && oldPiecesState[newPiece.Key].GetType() != newPiece.Value.GetType();
+                bool isPieceDifferentType = isPieceOld && oldPiecesState[newPiece.Key] != newPiece.Value;
 
                 if (!isPieceOld || isPieceDifferentType)
                     newPieces.Add(newPiece.Key, newPiece.Value);
