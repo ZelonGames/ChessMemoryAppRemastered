@@ -97,7 +97,7 @@ namespace ChessMemoryAppRemastered
 
             UpdateChessBoardPosition(Width, Height);
             MainPage_SizeChanged(this, null);
-            uIChessBoard.GeneratePieces(chessBoard);
+            uIChessBoard.ReloadPieces(chessBoard);
             pieceIntegration = new UIPieceIntegration(uIChessBoard);
             pieceMover = new UIPieceMover(uIChessBoard);
             pieceMover.MadeLegalMove += MadeLegalMove;
@@ -108,7 +108,7 @@ namespace ChessMemoryAppRemastered
         {
             previousChessBoardState = chessBoard;
             chessBoard = nextChessBoardState;
-            uIChessBoard!.GeneratePieces(nextChessBoardState);
+            uIChessBoard!.ReloadPieces(nextChessBoardState);
             pieceIntegration.Dispose();
             pieceIntegration = new UIPieceIntegration(uIChessBoard);
         }

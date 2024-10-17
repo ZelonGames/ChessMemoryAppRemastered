@@ -67,7 +67,7 @@ namespace ChessMemoryAppRemastered.Model.UI_Components
             }
         }
 
-        public void GeneratePieces(ChessBoardState newChessBoardState)
+        public void ReloadPieces(ChessBoardState newChessBoardState)
         {
             ChessBoardState oldChessBoardState = chessBoardState;
 
@@ -97,13 +97,13 @@ namespace ChessMemoryAppRemastered.Model.UI_Components
                 return oldState.PiecesState.Pieces;
 
             var oldPieces = new Dictionary<Coordinate, Piece>();
-            var oldPiecesState = oldState.PiecesState.Pieces;
-            var newPiecesState = newState.PiecesState.Pieces;
+            var oldPiecesFromState = oldState.PiecesState.Pieces;
+            var newPiecesFromState = newState.PiecesState.Pieces;
 
-            foreach (var oldPiece in  oldPiecesState)
+            foreach (var oldPiece in  oldPiecesFromState)
             {
-                bool isPieceOld = newPiecesState.ContainsKey(oldPiece.Key);
-                bool isPieceDifferentType = isPieceOld && newPiecesState[oldPiece.Key].GetType() != oldPiece.Value.GetType();
+                bool isPieceOld = newPiecesFromState.ContainsKey(oldPiece.Key);
+                bool isPieceDifferentType = isPieceOld && newPiecesFromState[oldPiece.Key].GetType() != oldPiece.Value.GetType();
 
                 if (!isPieceOld || isPieceDifferentType)
                     oldPieces.Add(oldPiece.Key, oldPiece.Value);

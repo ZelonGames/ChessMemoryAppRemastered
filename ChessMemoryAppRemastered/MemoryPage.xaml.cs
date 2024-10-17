@@ -46,7 +46,7 @@ public partial class MemoryPage : ContentPage
 
         UpdateChessBoardPosition(Width, Height);
         MainPage_SizeChanged(this, null);
-        uIChessBoard.GeneratePieces(chessBoard);
+        uIChessBoard.ReloadPieces(chessBoard);
     }
 
     private void MainPage_SizeChanged(object? sender, EventArgs? e)
@@ -75,7 +75,7 @@ public partial class MemoryPage : ContentPage
         UpdateMnemonicsText();
         ChessBoardState nextState = MoveHelper.GetNextStateFromMove(move);
         chessBoard = nextState;
-        uIChessBoard!.GeneratePieces(nextState);
+        uIChessBoard!.ReloadPieces(nextState);
         currentVariationMove++;
 
         history.Add(nextState);
@@ -88,7 +88,7 @@ public partial class MemoryPage : ContentPage
 
         history.Remove(history.Last());
         chessBoard = history.Last();
-        uIChessBoard!.GeneratePieces(chessBoard);
+        uIChessBoard!.ReloadPieces(chessBoard);
         mnemonicsWordGenerator.RemoveLastWord();
         UpdateMnemonicsText();
         currentVariationMove--;
