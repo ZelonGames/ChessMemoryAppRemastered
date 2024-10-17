@@ -96,7 +96,7 @@ public partial class MemoryPage : ContentPage
 
     private void btnCopy_Clicked(object sender, EventArgs e)
     {
-        Clipboard.SetTextAsync("");
+        Clipboard.SetTextAsync(lblMnemonics.Text);
     }
 
     private void btnReset_Clicked(object? sender, EventArgs? e)
@@ -117,7 +117,6 @@ public partial class MemoryPage : ContentPage
     private async void UpdateMnemonicsText()
     {
         lblMnemonics.IsVisible = showText;
-
         lblMnemonics.Text = mnemonicsWordGenerator.GetWordsAsString();
         await scrollMnemonics.ScrollToAsync(0, lblMnemonics.Height, true);
     }
