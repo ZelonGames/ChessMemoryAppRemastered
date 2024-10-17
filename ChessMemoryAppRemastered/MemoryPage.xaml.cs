@@ -22,7 +22,6 @@ public partial class MemoryPage : ContentPage
     private Chapter? chapter;
     private Variation? variation;
     private int currentVariationMove = 0;
-    private bool showText = true;
     private MnemonicsWordGenerator mnemonicsWordGenerator = new();
 
     public MemoryPage()
@@ -110,13 +109,12 @@ public partial class MemoryPage : ContentPage
 
     private void btnToggleText_Clicked(object sender, EventArgs e)
     {
-        showText = !showText;
+        lblMnemonics.IsVisible = !lblMnemonics.IsVisible;
         UpdateMnemonicsText();
     }
 
     private async void UpdateMnemonicsText()
     {
-        lblMnemonics.IsVisible = showText;
         lblMnemonics.Text = mnemonicsWordGenerator.GetWordsAsString();
         await scrollMnemonics.ScrollToAsync(0, lblMnemonics.Height, true);
     }
