@@ -18,8 +18,34 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <VerticalStackLayout>
-            
+        <VerticalStackLayout MaximumWidthRequest="100">
+            <Entry x:Name="entryVariation"
+                   Text="Arkhangelsk #1"
+                   PlaceholderColor="LightGray"
+                   TextColor="White"
+                   Placeholder="VariationName"/>
+            <HorizontalStackLayout>
+                <Button x:Name="btnPreviousMove"
+                    Text="&lt;--"
+                    Clicked="btnPreviousMove_Clicked"/>
+                <Button x:Name="btnNextMove"
+                    Text="--&gt;"
+                    Clicked="btnNextMove_Clicked"/>
+            </HorizontalStackLayout>
+            <Button x:Name="btnReset"
+                    Text="Reset"
+                    Clicked="btnReset_Clicked"/>
+            <Button x:Name="btnToggleText"
+                    Text="Toggle text"
+                    Clicked="btnToggleText_Clicked"/>
+            <Button x:Name="btnCopy"
+                    Text="Copy"
+                    Clicked="btnCopy_Clicked"/>
+
+            <ScrollView x:Name="scrollMnemonics" MaximumHeightRequest="200">
+                <Label x:Name="lblMnemonics"
+                       TextColor="White"/>
+            </ScrollView>
         </VerticalStackLayout>
 
         <AbsoluteLayout x:Name="absoluteLayoutChessBoard"

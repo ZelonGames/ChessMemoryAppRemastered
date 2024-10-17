@@ -1,5 +1,6 @@
 ﻿using ChessMemoryAppRemastered.Model.ChessBoard;
 using ChessMemoryAppRemastered.Model.ChessBoard.FEN;
+using ChessMemoryAppRemastered.Model.ChessBoard.Pieces;
 using ChessMemoryAppRemastered.Model.UI_Integration;
 using System;
 using System.Collections.Generic;
@@ -66,23 +67,64 @@ namespace ChessMemoryAppRemastered.Model.UI_Components
             }
         }
 
-        public void GeneratePieces(ChessBoardState chessBoardState)
+        public void GeneratePieces(ChessBoardState newChessBoardState)
         {
-            this.chessBoardState = chessBoardState;
-            pieces.Clear();
+            ChessBoardState oldChessBoardState = chessBoardState;
 
-            foreach (var square in squares.Values)
+            var oldPieces = GetOldPieces(oldChessBoardState, newChessBoardState);
+            var newPieces = GetNewPieces(oldChessBoardState, newChessBoardState);
+            
+            foreach (var piece in oldPieces)
             {
-                square.contentView.Content = null;
+                pieces.Remove(piece.Key);
+                squares[piece.Value.coordinate].contentView.Content = null;
             }
-
-            foreach (var piece in chessBoardState.PiecesState.Pieces.Values)
+            
+            foreach (var piece in newPieces.Values)
             {
                 var uiPiece = new UIPiece(piece);
 
                 pieces.Add(piece.coordinate, uiPiece);
                 squares[piece.coordinate].contentView.Content = uiPiece.image;
             }
+
+            chessBoardState = newChessBoardState;
+        }
+
+        private static Dictionary<Coordinate, Piece> GetOldPieces(ChessBoardState oldState, ChessBoardState newState)
+        {
+            if (oldState == newState)
+                return oldState.PiecesState.Pieces;
+
+            var oldPieces = new Dictionary<Coordinate, Piece>();
+            var oldPiecesState = oldState.PiecesState.Pieces;
+            var newPiecesState = newState.PiecesState.Pieces;
+
+            foreach (var oldPiece in  oldPiecesState)
+            {
+                if (!newPiecesState.ContainsKey(oldPiece.Key))
+                    oldPieces.Add(oldPiece.Key, oldPiece.Value);
+            }
+
+            return oldPieces;
+        }
+
+        private static Dictionary<Coordinate, Piece> GetNewPieces(ChessBoardState oldState, ChessBoardState newState)
+        {
+            if (oldState == newState)
+                return newState.PiecesState.Pieces;
+
+            var newPieces = new Dictionary<Coordinate, Piece>();
+            var oldPiecesState = oldState.PiecesState.Pieces;
+            var newPiecesState = newState.PiecesState.Pieces;
+
+            foreach (var newPiece in newPiecesState)
+            {
+                if (!oldPiecesState.ContainsKey(newPiece.Key))
+                    newPieces.Add(newPiece.Key, newPiece.Value);
+            }
+
+            return newPieces;
         }
     }
 }

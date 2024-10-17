@@ -147,10 +147,10 @@
       ],
       "3": [
         "satellite",
+        "telescope",
         "dalmatian",
         "spatula",
-        "telephone",
-        "telescope"
+        "telephone"
       ],
       "4": [
         "Diplodocus",
@@ -196,8 +196,8 @@
         "taxi"
       ],
       "3": [
-        "woodpecker",
         "petticoat",
+        "woodpecker",
         "sparrowhawk",
         "Sudoku",
         "toboggan"
@@ -210,6 +210,7 @@
     },
     "a8": {
       "1": [
+        "tuff",
         "dove",
         "Dave(name)"
       ],
@@ -241,10 +242,10 @@
       ],
       "2": [
         "Santa",
-        "centaur",
         "noodle",
         "sandwich",
         "snowdrop",
+        "centaur",
         "sundae"
       ],
       "3": [
@@ -262,8 +263,9 @@
     },
     "b2": {
       "1": [
-        "nun",
-        "(John)Nunn"
+        "pin",
+        "pain",
+        "zone"
       ],
       "2": [
         "ninja",
@@ -285,6 +287,7 @@
     "b3": {
       "1": [
         "gnome",
+        "numb",
         "nymph"
       ],
       "2": [
@@ -310,8 +313,8 @@
         "snare"
       ],
       "2": [
-        "narwhal",
         "snorkel",
+        "narwhal",
         "spanner"
       ],
       "3": [
@@ -355,8 +358,8 @@
         "hinge"
       ],
       "2": [
-        "banjo",
         "angel",
+        "banjo",
         "engine",
         "poncho",
         "snowshoe",
@@ -380,10 +383,10 @@
         "zinc"
       ],
       "2": [
+        "necklace",
         "beanbag",
         "hanbok",
         "insect",
-        "necklace",
         "snooker"
       ],
       "3": [
@@ -476,6 +479,7 @@
     },
     "c3": {
       "1": [
+        "nom(nom nom...)",
         "mime",
         "meme",
         "mumps"
@@ -500,18 +504,18 @@
         "moor"
       ],
       "2": [
-        "meerkat",
-        "hammer",
         "marble",
-        "mirror"
+        "mirror",
+        "hammer",
+        "meerkat"
       ],
       "3": [
-        "samurai",
         "boomerang",
         "emerald",
+        "samurai",
+        "marshmallow",
         "maraca",
         "marmalade",
-        "marshmallow",
         "mercury",
         "sombrero",
         "submarine",
@@ -581,18 +585,18 @@
         "smokestack"
       ],
       "3": [
-        "hummingbird",
+        "microphone",
         "magazine",
         "mechanic",
-        "microphone",
+        "hummingbird",
         "mosaic",
         "mosquito"
       ],
       "4": [
-        "pomegranate",
         "macaroni",
-        "Makemake",
         "magnesium",
+        "pomegranate",
+        "Makemake",
         "magnolia",
         "mascarpone"
       ]
@@ -618,31 +622,31 @@
     "d1": {
       "1": [
         "heart",
-        "broth",
+        "rat",
         "Earth",
-        "rat"
+        "broth"
       ],
       "2": [
         "robot",
-        "parrot",
         "pirate",
+        "wizard",
         "rabbit",
+        "parrot",
         "rooster",
-        "warthog",
-        "wizard"
+        "warthog"
       ],
       "3": [
-        "president",
-        "barrister",
-        "hairdryer",
-        "protester",
         "radio",
+        "hairdryer",
+        "barrister",
+        "protester",
+        "president",
         "risotto",
         "sourdough"
       ],
       "4": [
-        "rhododendron",
         "artillery",
+        "rhododendron",
         "paparazzi",
         "radiator",
         "ratatouille"
@@ -656,10 +660,10 @@
         "wren"
       ],
       "2": [
-        "heron",
-        "orange",
-        "parsnip",
         "rainbow",
+        "orange",
+        "heron",
+        "parsnip",
         "ribbon",
         "robin",
         "siren"
@@ -673,20 +677,20 @@
         "Uranus"
       ],
       "4": [
-        "rhinoceros",
-        "Esperanto",
+        "uranium",
         "pepperoni",
-        "uranium"
+        "rhinoceros",
+        "Esperanto"
       ]
     },
     "d3": {
       "1": [
         "ram",
+        "worm",
         "arm",
         "broom",
         "pram",
-        "rum",
-        "worm"
+        "rum"
       ],
       "2": [
         "Roman",
@@ -700,14 +704,15 @@
         "ramekin"
       ],
       "4": [
+        "supermodel",
         "armadillo",
         "barometer",
-        "harmonica",
-        "supermodel"
+        "harmonica"
       ]
     },
     "d4": {
       "1": [
+        "ore",
         "roar",
         "rear",
         "Ruhr"
@@ -731,17 +736,17 @@
     },
     "d5": {
       "1": [
-        "pearl",
         "rail",
+        "pearl",
         "roll"
       ],
       "2": [
         "barrel",
+        "spiral",
+        "bracelet",
         "barbell",
         "barley",
-        "bracelet",
-        "parsley",
-        "spiral"
+        "parsley"
       ],
       "3": [
         "cereal",
@@ -763,8 +768,8 @@
       "2": [
         "airship",
         "archer",
-        "porridge",
-        "warship"
+        "warship",
+        "porridge"
       ],
       "3": [
         "projector",
@@ -777,35 +782,35 @@
     },
     "d7": {
       "1": [
-        "rake",
-        "ark",
         "brick",
+        "ring",
+        "ark",
         "orc",
-        "ring"
+        "rake"
       ],
       "2": [
-        "sparkler",
-        "iceberg",
-        "orca",
-        "organ",
-        "raccoon",
+        "rocket",
         "racket",
-        "rocket"
+        "raccoon",
+        "iceberg",
+        "organ",
+        "sparkler",
+        "orca"
       ],
       "3": [
-        "harpsichord",
-        "architect",
         "broccoli",
+        "recorder",
+        "architect",
+        "harpsichord",
         "parakeet",
-        "porcupine",
-        "recorder"
+        "porcupine"
       ],
       "4": [
         "orangutan",
+        "oregano",
         "architecture",
         "asparagus",
         "hieroglyphics",
-        "oregano",
         "origami",
         "paraglider"
       ]
@@ -813,45 +818,45 @@
     "d8": {
       "1": [
         "raft",
-        "reef",
-        "surf"
+        "surf",
+        "reef"
       ],
       "2": [
-        "perfume",
+        "rifle",
         "earphones",
-        "prefect",
+        "perfume",
         "prophet",
-        "raven",
-        "rifle"
+        "prefect",
+        "raven"
       ],
       "3": [
         "referee",
         "privateer"
       ],
       "4": [
+        "supervisor",
         "ravioli",
         "Orvieto(wine)",
-        "profiterole",
-        "supervisor"
+        "profiterole"
       ]
     },
     "e1": {
       "1": [
-        "sloth",
         "belt",
-        "lathe",
         "light",
-        "lute",
-        "salt"
+        "salt",
+        "sloth",
+        "lathe",
+        "lute"
       ],
       "2": [
-        "lobster",
         "ladder",
         "laptop",
-        "lettuce",
-        "lipstick",
         "pilot",
-        "wallet"
+        "wallet",
+        "lipstick",
+        "lobster",
+        "lettuce"
       ],
       "3": [
         "bulldozer",
@@ -861,10 +866,10 @@
         "wildebeest"
       ],
       "4": [
-        "lederhosen",
-        "Elizabeth(name)",
         "politician",
         "polyester",
+        "Elizabeth(name)",
+        "lederhosen",
         "solicitor"
       ]
     },
@@ -893,21 +898,21 @@
     },
     "e3": {
       "1": [
+        "lamp",
         "lamb",
         "blimp",
-        "lamp",
         "lime",
+        "slime",
         "loom",
-        "plum",
-        "slime"
+        "plum"
       ],
       "2": [
-        "lemur",
         "helmet",
-        "lamppost",
-        "lamprey",
         "lemon",
-        "llama"
+        "llama",
+        "lamppost",
+        "lemur",
+        "lamprey"
       ],
       "3": [
         "policeman",
@@ -916,9 +921,9 @@
         "salami"
       ],
       "4": [
-        "salamander",
         "Lamborghini",
         "Olympian",
+        "salamander",
         "palomino(horse)",
         "policewoman"
       ]
@@ -931,36 +936,37 @@
       ],
       "2": [
         "sailor",
+        "walrus",
         "lawyer",
         "leper",
         "lorry",
-        "slipper",
-        "walrus"
+        "slipper"
       ],
       "3": [
-        "wheelbarrow",
+        "wallpaper",
         "blueberry",
+        "wheelbarrow",
         "celery",
-        "Labrador",
-        "wallpaper"
+        "Labrador"
       ],
       "4": [
         "allosaurus",
+        "pliosaurus",
         "celebrity",
-        "Liberia",
-        "pliosaurus"
+        "Liberia"
       ]
     },
     "e5": {
       "1": [
-        "lol",
-        "Lil(name)"
+        "sail",
+        "soul",
+        "seal"
       ],
       "2": [
-        "lily",
+        "loophole",
         "label",
-        "lilac",
-        "loophole"
+        "lily",
+        "lilac"
       ],
       "3": [
         "lollipop",
@@ -973,6 +979,7 @@
     },
     "e6": {
       "1": [
+        "leash",
         "leech",
         "bleach",
         "sledge",
@@ -995,10 +1002,10 @@
     },
     "e7": {
       "1": [
-        "hulk",
-        "leek",
         "log",
+        "hulk",
         "lung",
+        "leek",
         "sling",
         "slug"
       ],
@@ -1009,9 +1016,9 @@
         "(Judit)Polgar"
       ],
       "3": [
-        "alpaca",
         "alcohol",
         "blackberry",
+        "alpaca",
         "bulgogi",
         "liquorice",
         "pelican"
@@ -1037,8 +1044,8 @@
       ],
       "3": [
         "elephant",
-        "lavender",
         "wolverine",
+        "lavender",
         "xylophone"
       ],
       "4": [
@@ -1056,14 +1063,14 @@
         "sheet"
       ],
       "2": [
+        "hatchet",
         "cheetah",
-        "chestnut",
-        "hatchet"
+        "chestnut"
       ],
       "3": [
+        "Jupiter",
         "shuttlecock",
-        "chapati",
-        "Jupiter"
+        "chapati"
       ],
       "4": [
         "Chateaubriand(steak)",
@@ -1077,17 +1084,17 @@
         "gin"
       ],
       "2": [
-        "genie",
         "chainsaw",
-        "ginger",
+        "potion",
         "pigeon",
-        "potion"
+        "ginger",
+        "genie"
       ],
       "3": [
-        "chinchilla",
-        "chancellor",
         "chandelier",
         "janitor",
+        "chancellor",
+        "chinchilla",
         "Shinkansen"
       ],
       "4": [
@@ -1102,16 +1109,16 @@
         "Jim(name)"
       ],
       "2": [
-        "gymnast",
+        "shampoo",
         "champagne",
-        "chimney",
-        "shampoo"
+        "gymnast",
+        "chimney"
       ],
       "3": [
+        "pyjama",
         "chimpanzee",
-        "chamberpot",
         "champion",
-        "pyjama"
+        "chamberpot"
       ],
       "4": [
         "gymnasium",
@@ -1120,18 +1127,18 @@
     },
     "f4": {
       "1": [
-        "shark",
         "chair",
-        "jar",
         "shirt",
         "shorts",
+        "shark",
+        "jar",
         "shrew",
         "shrimp"
       ],
       "2": [
+        "cherry",
         "giraffe",
         "badger",
-        "cherry",
         "shepherd",
         "sheriff"
       ],
@@ -1141,22 +1148,22 @@
         "shawarma"
       ],
       "4": [
+        "Jerusalem",
         "budgerigar",
         "jabberwocky",
-        "Jeremiah(name)",
-        "Jerusalem"
+        "Jeremiah(name)"
       ]
     },
     "f5": {
       "1": [
-        "shell",
         "chalk",
+        "shell",
         "gel"
       ],
       "2": [
         "cello",
-        "chilli",
         "jelly",
+        "chilli",
         "shallot",
         "shelduck"
       ],
@@ -1167,8 +1174,8 @@
         "shipbuilder"
       ],
       "4": [
-        "shopaholic",
         "geologist",
+        "shopaholic",
         "Juliana(name)"
       ]
     },
@@ -1178,17 +1185,18 @@
         "Josh(name)"
       ],
       "2": [
+        "Ash (ketchum)",
         "shisha",
         "japchae",
         "sheepshank(knot)",
         "shoji"
       ],
       "3": [
+        "jujitsu",
         "jujube",
         "chapshoro",
         "jajangmyeon",
-        "Joshua(name)",
-        "jujitsu"
+        "Joshua(name)"
       ],
       "4": [
         "shabu-shabu",
@@ -1199,13 +1207,13 @@
     },
     "f7": {
       "1": [
-        "chick",
         "jug",
+        "chick",
         "shack"
       ],
       "2": [
-        "hedgehog",
         "chicken",
+        "hedgehog",
         "jackpot",
         "jigsaw",
         "jockey",
@@ -1233,8 +1241,8 @@
       ],
       "2": [
         "shovel",
-        "chaffinch",
-        "Java"
+        "Java",
+        "chaffinch"
       ],
       "3": [
         "shoveler",
@@ -1249,30 +1257,30 @@
     },
     "g1": {
       "1": [
-        "squid",
         "cat",
+        "squid",
         "coat",
         "cot",
         "goat",
         "kite"
       ],
       "2": [
-        "kitten",
+        "guitar",
+        "scooter",
         "baguette",
         "bucket",
-        "guitar",
+        "kitten",
         "kestrel",
-        "scooter",
         "skittle",
         "wicket"
       ],
       "3": [
         "catapult",
         "basketball",
-        "cuttlefish",
         "octopus",
-        "pagoda",
-        "spaghetti"
+        "cuttlefish",
+        "spaghetti",
+        "pagoda"
       ],
       "4": [
         "caterpillar",
@@ -1289,19 +1297,19 @@
         "skin"
       ],
       "2": [
-        "canoe",
-        "bacon",
-        "candle",
         "candy",
-        "conker",
+        "candle",
         "cannon",
+        "bacon",
+        "canoe",
+        "conker",
         "gibbon",
         "kidney",
         "wagon"
       ],
       "3": [
-        "candyfloss",
         "bikini",
+        "candyfloss",
         "buccaneer",
         "canopy",
         "canister",
@@ -1318,18 +1326,18 @@
     "g3": {
       "1": [
         "gum",
-        "comb",
-        "game"
+        "game",
+        "comb"
       ],
       "2": [
-        "camel",
         "comet",
+        "camel",
         "kimchi"
       ],
       "3": [
         "kimono",
-        "Camelot",
         "computer",
+        "Camelot",
         "Komodo(dragon)"
       ],
       "4": [
@@ -1342,36 +1350,36 @@
     },
     "g4": {
       "1": [
+        "scarf",
+        "skirt",
+        "scar",
         "crab",
         "car",
-        "crane",
         "cream",
         "cross",
         "crow",
         "crown",
-        "corn",
         "grass",
-        "scar",
-        "scarf",
-        "screw",
-        "skirt"
+        "corn",
+        "crane",
+        "screw"
       ],
       "2": [
-        "ogre",
-        "boxer",
         "carrot",
-        "cricket",
-        "crystal",
+        "boxer",
+        "squirrel",
         "speaker",
-        "squirrel"
+        "crystal",
+        "cricket",
+        "ogre"
       ],
       "3": [
         "crocodile",
+        "gorilla",
         "acrobat",
         "caravan",
         "cormorant",
         "grasshopper",
-        "gorilla",
         "scorpion",
         "screwdriver"
       ],
@@ -1397,22 +1405,22 @@
       ],
       "2": [
         "eagle",
-        "bagel",
         "cola",
+        "bagel",
         "gazelle",
         "igloo",
         "seagull"
       ],
       "3": [
         "skeleton",
-        "clarinet",
         "goalkeeper",
+        "clarinet",
         "icicle",
         "koala"
       ],
       "4": [
-        "gladiator",
         "calculator",
+        "gladiator",
         "kaleidoscope",
         "ukulele"
       ]
@@ -1445,20 +1453,20 @@
         "gong"
       ],
       "2": [
+        "pickaxe",
+        "goggles",
+        "cookie",
         "peacock",
         "cockroach",
-        "cookie",
         "cuckoo",
         "cupcake",
-        "goggles",
-        "kayak",
-        "pickaxe"
+        "kayak"
       ],
       "3": [
+        "cucumber",
         "coconut",
         "cockatrice",
         "cockerel",
-        "cucumber",
         "kingfisher",
         "skyscraper",
         "wobbegong"
@@ -1493,23 +1501,22 @@
     "h1": {
       "1": [
         "foot",
-        "vat",
         "vest",
-        "vet"
+        "vet",
+        "vat"
       ],
       "2": [
         "feather",
-        "father",
         "football",
         "softball",
+        "father",
         "voter"
       ],
       "3": [
-        "footballer",
-        "avocet",
         "physicist",
         "veteran",
         "video",
+        "avocet",
         "vitamin"
       ],
       "4": [
@@ -1520,9 +1527,9 @@
     },
     "h2": {
       "1": [
+        "phone",
         "fan",
         "fawn",
-        "phone",
         "sphinx",
         "van",
         "vane"
@@ -1564,11 +1571,11 @@
     },
     "h4": {
       "1": [
+        "sphere",
         "frog",
-        "fern",
-        "fir",
         "fridge",
-        "sphere"
+        "fern",
+        "fir"
       ],
       "2": [
         "fairy",
@@ -1580,11 +1587,11 @@
         "viper"
       ],
       "3": [
-        "ivory",
+        "overalls",
+        "overcoat",
         "hovercraft",
         "officer",
-        "overalls",
-        "overcoat"
+        "ivory"
       ],
       "4": [
         "firefighter",
@@ -1607,17 +1614,17 @@
         "vole"
       ],
       "2": [
-        "waffle",
         "flower",
+        "waffle",
         "fossil",
-        "soufflé",
-        "vessel"
+        "vessel",
+        "soufflé"
       ],
       "3": [
-        "flamingo",
-        "buffalo",
-        "falafel",
         "flamethrower",
+        "falafel",
+        "buffalo",
+        "flamingo",
         "viola",
         "vulture"
       ],
@@ -1633,26 +1640,26 @@
         "fudge"
       ],
       "2": [
-        "(Mount)Fuji",
         "(Bobby)Fischer",
-        "fishcake"
+        "fishcake",
+        "(Mount)Fuji"
       ],
       "3": [
         "fisherman",
         "fishmonger"
       ],
       "4": [
-        "vigilante",
+        "vegetable",
         "fisherwoman",
-        "vegetable"
+        "vigilante"
       ]
     },
     "h7": {
       "1": [
+        "fog",
         "fox",
         "fax",
-        "fig",
-        "fog"
+        "fig"
       ],
       "2": [
         "Viking",
@@ -1672,7 +1679,7 @@
     },
     "h8": {
       "1": [
-        "five",
+        "(htc)vive",
         "fife",
         "Viv(name)"
       ],

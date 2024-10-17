@@ -13,6 +13,9 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
     {
         public static string GetCoordinatesFromMoveNotation(string moveNotation)
         {
+            if (moveNotation is "O-O" or "O-O-O")
+                return moveNotation;
+
             var regex = new Regex(@"([a-h][1-8])");
             Match match = regex.Match(moveNotation.ToLower());
             return match.Groups[0].Value;
@@ -34,11 +37,32 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
                 'r' => Move.Promotion.Rook,
                 'q' => Move.Promotion.Queen,
                 _ => Move.Promotion.None
-        };
+            };
         }
 
         public static char? GetSpecificationFromMoveNotation(string moveNotation)
         {
+            if (moveNotation.Contains('='))
+                moveNotation = moveNotation[..moveNotation.IndexOf('=')];
+            moveNotation = Regex.Replace(moveNotation, "[#+]", "");
+            bool isCaptureMove = moveNotation.Contains('x');
+            if (isCaptureMove)
+            {
+                string leftSide = moveNotation.Split('x')[0];
+                if (leftSide.Length == 2)
+                    return leftSide[1];
+                else if (leftSide.Length == 1 && char.IsUpper(leftSide[0]))
+                    return null;
+            }
+            else
+            {
+                if (char.IsUpper(moveNotation[0]) && moveNotation.Length == 3 || 
+                    moveNotation.Length == 2)
+                    return null;
+                if (char.IsLower(moveNotation[0]) && moveNotation.Length == 3)
+                    return moveNotation[0];
+            }
+
             var regex = new Regex(@"[nbrq]([a-h1-8])|([a-h1-8])x");
             Match match = regex.Match(moveNotation.ToLower()[..2]);
 
@@ -53,6 +77,8 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
 
         public static char GetPieceTypeCharFromMoveNotation(string moveNotation)
         {
+            if (moveNotation is "O-O" or "O-O-O")
+                return 'K';
             char firstChar = moveNotation[0];
             return char.IsUpper(firstChar) ? firstChar : 'P';
         }
@@ -61,7 +87,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
         {
             PlayerColor color = chessBoardState.CurrentTurn;
             string toCoordinateString = GetCoordinatesFromMoveNotation(moveNotation);
-            Coordinate toCoordinate = Coordinate.FromAlphabeticCoordinate(toCoordinateString);
+            Coordinate toCoordinate = Coordinate.FromAlphabeticCoordinate(toCoordinateString, color);
             Type pieceType = GetPieceTypeFromNoveNotation(moveNotation);
             char? pieceSpecification = GetSpecificationFromMoveNotation(moveNotation);
             int? fromY = GetRowFromSpecification(pieceSpecification);
@@ -77,8 +103,8 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
                 bool canPieceMoveToSquare = legalMoves.ContainsKey(toCoordinate);
                 if (!canPieceMoveToSquare)
                     continue;
-             
-                if (!pieceSpecification.HasValue || 
+
+                if (!pieceSpecification.HasValue ||
                     char.IsNumber(pieceSpecification.Value) && piece.Value.coordinate.Y == fromY!.Value ||
                     char.IsLetter(pieceSpecification.Value) && piece.Value.coordinate.X == fromX!.Value)
                 {

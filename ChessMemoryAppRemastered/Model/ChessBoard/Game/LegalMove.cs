@@ -42,8 +42,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
                 else
                 {
                     moveType = legalMoves[toCoordinate].type;
-                    if (toCoordinate.Y is 0 or 7)
-                        this.promotionType = promotionType;
+                    this.promotionType = promotionType;
                 }
             }
         }

@@ -24,13 +24,7 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
 
         public List<string> GetWordsFromSquare(string square, int candidates)
         {
-            return Coordinates![square][candidates.ToString()];
-        }
-
-        public string GetRandomWordFromSquare(string square, int candidates)
-        {
-            var words = GetWordsFromSquare(square, candidates);
-            return words[rnd.Next(0, words.Count)];
+            return Coordinates![square.ToLower()][candidates.ToString()];
         }
     }
 }
