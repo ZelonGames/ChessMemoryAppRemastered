@@ -116,9 +116,7 @@ public partial class MemoryPage : ContentPage
 
     private async void UpdateMnemonicsText()
     {
-        lblMnemonics.Text = "";
-        if (!showText)
-            return;
+        lblMnemonics.IsVisible = showText;
 
         lblMnemonics.Text = mnemonicsWordGenerator.GetWordsAsString();
         await scrollMnemonics.ScrollToAsync(0, lblMnemonics.Height, true);
