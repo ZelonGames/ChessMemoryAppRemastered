@@ -8,8 +8,8 @@
     Title="ChessMemoryAppRemastered">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MemoryPage}"
-        Route="MemoryPage" />
+        Title="Chapters"
+        ContentTemplate="{DataTemplate local:ChaptersPage}"
+        />
 
 </Shell>

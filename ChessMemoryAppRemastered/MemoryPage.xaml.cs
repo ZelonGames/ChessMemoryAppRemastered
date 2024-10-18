@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 
 namespace ChessMemoryAppRemastered;
 
+[QueryProperty(nameof(Model.Courses.Course), "course")]
+[QueryProperty(nameof(Model.Courses.Chapter), "chapter")]
+[QueryProperty(nameof(Model.Courses.Variation), "variation")]
 public partial class MemoryPage : ContentPage
 {
     private List<ChessBoardState> history = [];
@@ -18,9 +21,9 @@ public partial class MemoryPage : ContentPage
     private UIPieceIntegration pieceIntegration;
     private UIPieceMover pieceMover;
     private UISquareSelectionTracker squareSelectionTracker;
-    private Course? course;
-    private Chapter? chapter;
-    private Variation? variation;
+    public Course? Course {  get; set; }
+    public Chapter? Chapter { get; set; }
+    public Variation? Variation { get; set; }
     private int currentVariationMove = 0;
     private MnemonicsWordGenerator mnemonicsWordGenerator = new();
 
@@ -31,14 +34,17 @@ public partial class MemoryPage : ContentPage
         //var m = MoveNotationHelper.TryGetLegalMoveFromNotation(a, "Bxe3");
 
         SizeChanged += MainPage_SizeChanged;
-        Loaded += MainPage_Loaded;
     }
 
-    private async void MainPage_Loaded(object? sender, EventArgs? e)
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        course = await Course.CreateInstanceFromJson("The Grand Ruy Lopez");
-        chapter = course.GetChapterByName("Quickstarter Guide");
-        variation = chapter!.GetVariationByName(entryVariation.Text)!;
+        base.OnNavigatedTo(args);
+        Title = Variation!.Name;
+        LoadBoard();
+    }
+
+    private void LoadBoard()
+    {
         chessBoard = ChessBoardFenGenerator.Generate("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
         history.Add(chessBoard);
         uIChessBoard = new UIChessBoard(absoluteLayoutChessBoard, chessBoard);
@@ -65,10 +71,10 @@ public partial class MemoryPage : ContentPage
 
     private async void btnNextMove_Clicked(object sender, EventArgs e)
     {
-        if (currentVariationMove >= variation!.Moves.Count)
+        if (currentVariationMove >= Variation!.Moves.Count)
             return;
 
-        var variationMove = variation!.Moves[currentVariationMove];
+        var variationMove = Variation!.Moves[currentVariationMove];
         LegalMove move = MoveNotationHelper.TryGetLegalMoveFromNotation(chessBoard, variationMove.MoveNotation);
         await mnemonicsWordGenerator.AddWordFromMove(move);
         UpdateMnemonicsText();
@@ -104,7 +110,7 @@ public partial class MemoryPage : ContentPage
         mnemonicsWordGenerator = new();
         history.Clear();
         UpdateMnemonicsText();
-        MainPage_Loaded(null, null);
+        LoadBoard();
     }
 
     private void btnToggleText_Clicked(object sender, EventArgs e)

@@ -18,6 +18,10 @@ namespace ChessMemoryAppRemastered
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            /*
+            builder.Services.AddTransient<ChaptersPage>();
+            builder.Services.AddTransient<VariationsPage>();
+            builder.Services.AddTransient<MemoryPage>();*/
 
             return builder.Build();
         }

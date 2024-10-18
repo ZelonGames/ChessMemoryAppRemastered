@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ChessMemoryAppRemastered.MemoryPage"
+             Title="Memory"
              BackgroundColor="{StaticResource Black}"
              Shell.BackgroundColor="{StaticResource Black}"
              Shell.TitleColor="White"
@@ -19,11 +20,6 @@
         </Grid.ColumnDefinitions>
 
         <VerticalStackLayout MaximumWidthRequest="100">
-            <Entry x:Name="entryVariation"
-                   Text="Arkhangelsk #1"
-                   PlaceholderColor="LightGray"
-                   TextColor="White"
-                   Placeholder="VariationName"/>
             <HorizontalStackLayout>
                 <Button x:Name="btnPreviousMove"
                     Text="&lt;--"
