@@ -693,8 +693,9 @@
         "rum"
       ],
       "2": [
-        "Roman",
+        "armor",
         "army",
+        "Roman",
         "bromine",
         "primrose"
       ],
@@ -729,9 +730,9 @@
         "horseradish"
       ],
       "4": [
+        "respirator",
         "barbarian",
-        "arboretum",
-        "respirator"
+        "arboretum"
       ]
     },
     "d5": {
@@ -875,13 +876,15 @@
     },
     "e2": {
       "1": [
-        "plane",
+        "lens",
+        "lane",
+        "plane",// similar to airship
         "lynx"
       ],
       "2": [
         "balloon",
-        "blanket",
         "lantern",
+        "blanket",
         "linnet"
       ],
       "3": [
@@ -1115,9 +1118,9 @@
         "chimney"
       ],
       "3": [
-        "pyjama",
         "chimpanzee",
         "champion",
+        "pyjama",
         "chamberpot"
       ],
       "4": [
@@ -1136,8 +1139,8 @@
         "shrimp"
       ],
       "2": [
-        "cherry",
         "giraffe",
+        "cherry",
         "badger",
         "shepherd",
         "sheriff"
@@ -1212,12 +1215,11 @@
         "shack"
       ],
       "2": [
-        "chicken",
         "hedgehog",
         "jackpot",
+        "juggler",
         "jigsaw",
         "jockey",
-        "juggler",
         "sheepdog",
         "shekel"
       ],
