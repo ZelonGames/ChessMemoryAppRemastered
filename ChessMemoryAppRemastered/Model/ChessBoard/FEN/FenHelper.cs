@@ -9,6 +9,23 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
 {
     public static class FenHelper
     {
+        public const string STATRING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+        public static string ConvertFenToChessableUrl(string fen, string courseID)
+        {
+            if (fen == null)
+                return "https://www.chessable.com";
+
+            string urlFen = fen.Replace('/', ';').Replace(" ", "%20");
+            return "https://www.chessable.com/course/" + courseID + "/fen/" + urlFen;
+        }
+
+        public static string ConvertFenToLichessUrl(string fen)
+        {
+            fen = fen.Split(' ')[0];
+            return "https://lichess.org/analysis/" + fen;
+        }
+
         public static char GetFenPieceChar(Piece piece)
         {
             char pieceChar = piece switch
@@ -63,6 +80,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
         {
             string fen = "";
 
+            #region Position
             for (int y = 7; y >= 0; y--)
             {
                 int spaces = 0;
@@ -91,11 +109,15 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
                 if (y > 0)
                     fen += "/";
             }
+            #endregion
 
+            #region Current Turn
             fen += " ";
             fen += chessBoardState.CurrentTurn == PlayerColor.White ? "w" : "b";
             fen += " ";
+            #endregion
 
+            #region Castling
             for (int i = 0; i < 4; i++)
             {
                 if (!chessBoardState.CastlingState.AllowedKingCastlingMoves.TryGetValue(
@@ -118,21 +140,27 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
                         fen += "k";
                         break;
                     default:
+                        fen += "-";
                         break;
                 }
             }
+            bool canCastle = chessBoardState.CastlingState.AllowedKingCastlingMoves.Count > 0;
+            fen += canCastle ? " " : "- ";
+            #endregion
 
-            fen += " ";
-
+            #region En Passant
             string enPassantTargetFen = "-";
             if (chessBoardState.EnpassantTarget.HasValue)
                 enPassantTargetFen = chessBoardState.EnpassantTarget.Value.ToAlphabeticCoordinate();
-            fen += enPassantTargetFen;
+            fen += enPassantTargetFen.ToLower();
+            #endregion
 
+            #region Move Counting
             fen += " ";
             fen += chessBoardState.FiftyMoveRuleCounter;
             fen += " ";
             fen += chessBoardState.FullMoves;
+            #endregion
 
             return fen;
         }

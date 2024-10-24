@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
 {
-    public readonly struct LegalMove
+    public readonly record struct LegalMove
     {
-        public readonly ChessBoardState chessBoardState;
-        private readonly Coordinate fromCoordinate;
-        public readonly Coordinate toCoordinate;
-        public readonly Move.Type moveType;
-        public readonly Move.Promotion promotionType;
+        public ChessBoardState ChessBoardStateBeforeMoveMade { get; init; }
+        private Coordinate FromCoordinate { get; init; }
+        public Coordinate ToCoordinate { get; init; }
+        public Move.Type MoveType { get; init; }
+        public Move.Promotion PromotionType { get; init; }
 
         public LegalMove(
-            ChessBoardState chessBoardState,
+            ChessBoardState chessBoardStateBeforeMoveMade,
             Coordinate fromCoordinate,
             Coordinate toCoordinate,
             Move.Promotion promotionType = Move.Promotion.None)
         {
-            this.chessBoardState = chessBoardState;
-            this.fromCoordinate = fromCoordinate;
-            this.toCoordinate = toCoordinate;
-            Dictionary<Coordinate, Piece> pieces = chessBoardState.PiecesState.Pieces;
+            ChessBoardStateBeforeMoveMade = chessBoardStateBeforeMoveMade;
+            FromCoordinate = fromCoordinate;
+            ToCoordinate = toCoordinate;
+            Dictionary<Coordinate, Piece> pieces = chessBoardStateBeforeMoveMade.PiecesState.Pieces;
 
             if (fromCoordinate.Equals(toCoordinate))
                 throw new SameSquareException();
@@ -33,23 +33,23 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
             else
             {
                 Piece movingPiece = pieces[fromCoordinate];
-                if (chessBoardState.CurrentTurn != movingPiece.color)
+                if (chessBoardStateBeforeMoveMade.CurrentTurn != movingPiece.color)
                     throw new WrongPieceColorException();
 
-                Dictionary<Coordinate, Move> legalMoves = movingPiece.GetLegalMoves(chessBoardState);
+                Dictionary<Coordinate, Move> legalMoves = movingPiece.GetLegalMoves(chessBoardStateBeforeMoveMade);
                 if (!legalMoves.ContainsKey(toCoordinate))
                     throw new IllegalMoveException();
                 else
                 {
-                    moveType = legalMoves[toCoordinate].type;
-                    this.promotionType = promotionType;
+                    MoveType = legalMoves[toCoordinate].type;
+                    PromotionType = promotionType;
                 }
             }
         }
 
         public readonly Piece GetPieceToMove()
         {
-            return chessBoardState.PiecesState.Pieces[fromCoordinate];
+            return ChessBoardStateBeforeMoveMade.PiecesState.Pieces[FromCoordinate];
         }
     }
 

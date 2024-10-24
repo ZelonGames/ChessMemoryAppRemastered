@@ -38,13 +38,18 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Pieces
                 chessBoardState.PiecesState.Pieces[moveToAdd.coordinate].color != color)
                 moves.Add(moveToAdd.coordinate, moveToAdd);
 
-            if (chessBoardState.EnpassantTarget != null)
-                moves.Add(moveToAdd.coordinate, new Move(Move.Type.EnPassant, chessBoardState.EnpassantTarget.Value));
+            if (chessBoardState.EnpassantTarget is not null)
+            {
+                bool isPawnNextToTarget =
+                    GetForwardYCoordinate(1) == chessBoardState.EnpassantTarget.Value.Y &&
+                    (coordinate.X == chessBoardState.EnpassantTarget.Value.X + 1 ||
+                    coordinate.X == chessBoardState.EnpassantTarget.Value.X - 1);
+                if (isPawnNextToTarget)
+                    moves.Add(chessBoardState.EnpassantTarget.Value, new Move(Move.Type.EnPassant, chessBoardState.EnpassantTarget.Value));
+            }
 
             return moves;
         }
-
-
 
         private bool IsPieceOnStartingSquare()
         {

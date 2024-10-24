@@ -39,8 +39,19 @@ public partial class MemoryPage : ContentPage
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        Title = Variation!.Name;
+        Variation = Course!.Chapters.Values.SelectMany(x => x.Variations.Where(x => x.Value.Name == "6...d6 7.O-O O-O 8.h3 Ba7 9.Re1 Nh5 #7")).First().Value;
+        lblTitle.Text = Variation!.Name;
+        var clickRecognizer = new TapGestureRecognizer();
+        clickRecognizer.Tapped += ClickRecognizer_Tapped;
+        lblTitle.GestureRecognizers.Add(clickRecognizer);
         LoadBoard();
+    }
+
+    private void ClickRecognizer_Tapped(object? sender, TappedEventArgs e)
+    {
+        string fen = FenHelper.ConvertToFenString(chessBoard);
+        string url = FenHelper.ConvertFenToChessableUrl(fen, Course!.ChessableCourseID.ToString());
+        Launcher.OpenAsync(url);
     }
 
     private void LoadBoard()
@@ -60,13 +71,13 @@ public partial class MemoryPage : ContentPage
             return;
 
         var page = sender as ContentPage;
-        UpdateChessBoardPosition(page!.Content.Width, page.Content.Height);
+        UpdateChessBoardPosition(page!.Width, page.Content.Height);
     }
 
     private void UpdateChessBoardPosition(double pageWidth, double pageHeight)
     {
-        absoluteLayoutChessBoard.TranslationX = pageWidth * 0.5f - uIChessBoard!.TotalSize * 0.5f;
-        absoluteLayoutChessBoard.TranslationY = pageHeight * 0.5f - uIChessBoard.TotalSize * 0.5f;
+        absoluteLayoutChessBoard.TranslationX = 0;
+        absoluteLayoutChessBoard.TranslationY = 0;// pageHeight * 0.5f - uIChessBoard.TotalSize * 0.5f;
     }
 
     private async void btnNextMove_Clicked(object sender, EventArgs e)
@@ -101,7 +112,7 @@ public partial class MemoryPage : ContentPage
 
     private void btnCopy_Clicked(object sender, EventArgs e)
     {
-        Clipboard.SetTextAsync(lblMnemonics.Text);
+        //Clipboard.SetTextAsync(lblMnemonics.Text);
     }
 
     private void btnReset_Clicked(object? sender, EventArgs? e)
@@ -115,13 +126,12 @@ public partial class MemoryPage : ContentPage
 
     private void btnToggleText_Clicked(object sender, EventArgs e)
     {
-        lblMnemonics.IsVisible = !lblMnemonics.IsVisible;
+        lblWordMove.IsVisible = !lblWordMove.IsVisible;
         UpdateMnemonicsText();
     }
 
-    private async void UpdateMnemonicsText()
+    private void UpdateMnemonicsText()
     {
-        lblMnemonics.Text = mnemonicsWordGenerator.GetWordsAsString();
-        await scrollMnemonics.ScrollToAsync(0, lblMnemonics.Height, true);
+        lblWordMove.Text = mnemonicsWordGenerator.Words.Count > 0 ? mnemonicsWordGenerator.Words.Last() : "";
     }
 }

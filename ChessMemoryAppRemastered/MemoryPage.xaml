@@ -4,6 +4,7 @@
              x:Class="ChessMemoryAppRemastered.MemoryPage"
              Title="Memory"
              BackgroundColor="{StaticResource Black}"
+             Shell.NavBarIsVisible="False"
              Shell.BackgroundColor="{StaticResource Black}"
              Shell.TitleColor="White"
              Shell.TabBarBackgroundColor="{StaticResource Black}"
@@ -11,23 +12,44 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition x:Name="columnChessBoard" Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            
         </Grid.ColumnDefinitions>
 
-        <VerticalStackLayout MaximumWidthRequest="100">
-            <HorizontalStackLayout>
+        <Label x:Name="lblTitle"
+               Grid.Column="0"
+               Grid.Row="0"
+               Grid.ColumnSpan="6"
+               FontSize="30"
+               Margin="0, 0, 0, 20"/>
+
+
+        <VerticalStackLayout 
+            WidthRequest="200"
+            HorizontalOptions="Start"
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+            <Grid ColumnDefinitions="*,*">
                 <Button x:Name="btnPreviousMove"
-                    Text="&lt;--"
-                    Clicked="btnPreviousMove_Clicked"/>
+                        Text="&lt;--"
+                        Clicked="btnPreviousMove_Clicked"
+                        Grid.Column="0"/>
                 <Button x:Name="btnNextMove"
-                    Text="--&gt;"
-                    Clicked="btnNextMove_Clicked"/>
-            </HorizontalStackLayout>
+                        Text="--&gt;"
+                        Clicked="btnNextMove_Clicked"
+                        Grid.Column="1"/>
+            </Grid>
             <Button x:Name="btnReset"
                     Text="Reset"
                     Clicked="btnReset_Clicked"/>
@@ -38,15 +60,16 @@
                     Text="Copy"
                     Clicked="btnCopy_Clicked"/>
 
-            <ScrollView x:Name="scrollMnemonics" MaximumHeightRequest="200">
-                <Label x:Name="lblMnemonics"
-                       TextColor="White"/>
-            </ScrollView>
+            <Label x:Name="lblWordMove"
+                   TextColor="White"
+                   FontSize="35"
+                   HorizontalTextAlignment="Center"></Label>
         </VerticalStackLayout>
 
         <AbsoluteLayout x:Name="absoluteLayoutChessBoard"
-                        Grid.Row="0"
-                        Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="3"
                         Margin="0, 0, 0, 50"/>
     </Grid>
 

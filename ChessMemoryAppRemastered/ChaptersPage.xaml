@@ -10,7 +10,6 @@
              >
 
     <ScrollView>
-        <VerticalStackLayout x:Name="variationsLayout">
-        </VerticalStackLayout>
+        <VerticalStackLayout x:Name="variationsLayout"/>
     </ScrollView>
 </ContentPage>

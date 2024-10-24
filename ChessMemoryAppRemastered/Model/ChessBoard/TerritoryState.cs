@@ -33,7 +33,11 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
                     if (controlledSquares.ContainsKey(controlledSquare.coordinate))
                         controlledSquares[controlledSquare.coordinate]++;
                     else
+                    {
+                        if (piece is not Pawn || 
+                            (piece is Pawn && controlledSquare.type is Move.Type.Capture))
                         controlledSquares.Add(controlledSquare.coordinate, 1);
+                    }
                 }
             }
 

@@ -138,31 +138,31 @@
         "till"
       ],
       "2": [
-        "tulip",
         "bottle",
+        "toilet",
         "dolphin",
-        "outlaw",
         "saddle",
-        "toilet"
+        "outlaw",
+        "tulip"
       ],
       "3": [
         "satellite",
         "telescope",
-        "dalmatian",
+        "telephone",
         "spatula",
-        "telephone"
+        "dalmatian"
       ],
       "4": [
-        "Diplodocus",
         "bodybuilder",
-        "television"
+        "television",
+        "Diplodocus"
       ]
     },
     "a6": {
       "1": [
         "dish",
-        "ditch",
-        "thatch"
+        "thatch",
+        "ditch"
       ],
       "2": [
         "stopwatch",
@@ -231,14 +231,14 @@
     },
     "b1": {
       "1": [
-        "ant",
-        "gnat",
-        "hand",
-        "net",
-        "newt",
-        "nut",
+        "wand",
         "sand",
-        "wand"
+        "hand",
+        "nut",
+        "ant",
+        "net",
+        "gnat",
+        "newt"
       ],
       "2": [
         "Santa",
@@ -479,7 +479,7 @@
     },
     "c3": {
       "1": [
-        "nom(nom nom...)",
+        "nom nom",
         "mime",
         "meme",
         "mumps"
@@ -500,7 +500,7 @@
     },
     "c4": {
       "1": [
-        "Mir(Soviet/Russianspacestation)",
+        "Mark",
         "moor"
       ],
       "2": [
@@ -603,7 +603,8 @@
     },
     "c8": {
       "1": [
-        "(ear)muff",
+        "morph",
+        "move",
         "mauve"
       ],
       "2": [
@@ -750,6 +751,7 @@
         "parsley"
       ],
       "3": [
+        "",
         "cereal",
         "porcelain"
       ],
@@ -903,9 +905,9 @@
       "1": [
         "lamp",
         "lamb",
-        "blimp",
-        "lime",
         "slime",
+        "lime",
+        "blimp",
         "loom",
         "plum"
       ],
@@ -939,8 +941,8 @@
       ],
       "2": [
         "sailor",
-        "walrus",
-        "lawyer",
+        "laser",
+        "alarm",
         "leper",
         "lorry",
         "slipper"
@@ -989,10 +991,10 @@
         "slush"
       ],
       "2": [
+        "lotion",
         "polish",
         "ledger",
-        "lodger",
-        "lotion"
+        "lodger"
       ],
       "3": [
         "eyelashes",
@@ -1184,6 +1186,8 @@
     },
     "f6": {
       "1": [
+        "pouch",
+        "ouch",
         "judge",
         "Josh(name)"
       ],

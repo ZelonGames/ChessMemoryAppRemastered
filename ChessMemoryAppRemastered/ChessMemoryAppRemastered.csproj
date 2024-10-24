@@ -58,6 +58,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Raw\chessMnemonicsNotations.json" />
+	  <None Remove="Resources\Raw\Courses\The Grand Ruy Lopez.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -86,6 +87,12 @@
 	  <Compile Update="ChaptersPage.xaml.cs">
 	    <DependentUpon>ChaptersPage.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Update="Resources\Raw\Courses\The Grand Ruy Lopez.json">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
 	</ItemGroup>
 
 	<ItemGroup>

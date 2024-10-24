@@ -29,14 +29,14 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
 
         public void RemoveLastWord()
         {
-            words.Remove(words.Last());
+            words.RemoveAt(words.Count - 1);
             previousWord = words.Count > 0 ? words.Last() : null;
         }
 
         public async Task AddWordFromMove(LegalMove move)
         {
             Piece movingPiece = move.GetPieceToMove();
-            ChessBoardState chessBoard = move.chessBoardState;
+            ChessBoardState chessBoard = move.ChessBoardStateBeforeMoveMade;
             var pieces = chessBoard.PiecesState.Pieces
                 .OrderBy(x => x.Value.coordinate.Y)
                 .OrderBy(x => x.Value.coordinate.X)
@@ -46,15 +46,15 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
 
             foreach (var piece in pieces)
             {
-                bool canPieceMakeTheSameMove = piece.Value.GetLegalMoves(chessBoard).ContainsKey(move.toCoordinate);
+                bool canPieceMakeTheSameMove = piece.Value.GetLegalMoves(chessBoard).ContainsKey(move.ToCoordinate);
                 if (canPieceMakeTheSameMove)
                     amountOfCandidatePieces++;
                 if (piece.Value == move.GetPieceToMove())
                     break;
             }
-
+            
             var mnemonicsNotation = await MnemonicsNotation.CreateInstanceFromJson();
-            string mnemonicsSquare = move.toCoordinate.ToAlphabeticCoordinate();
+            string mnemonicsSquare = move.ToCoordinate.ToAlphabeticCoordinate();
             List<string> candidateWords = mnemonicsNotation!.GetWordsFromSquare(mnemonicsSquare, amountOfCandidatePieces);
             string word = candidateWords[0];
             

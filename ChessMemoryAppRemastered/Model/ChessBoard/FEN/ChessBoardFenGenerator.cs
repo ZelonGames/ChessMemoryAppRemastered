@@ -42,8 +42,8 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.FEN
             string letterCoords = "abcdefgh";
 
             // 0,0 = a1
-            int y = letterCoords.IndexOf(enPassantTarget[0]);
-            int x = (int)char.GetNumericValue(enPassantTarget[1]) - 1;
+            int x = letterCoords.IndexOf(enPassantTarget[0]);
+            int y = (int)char.GetNumericValue(enPassantTarget[1]) - 1;
 
             return new Coordinate(x, y);
         }

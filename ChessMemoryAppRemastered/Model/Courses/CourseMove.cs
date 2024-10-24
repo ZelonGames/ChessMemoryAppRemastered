@@ -19,5 +19,11 @@ namespace ChessMemoryAppRemastered.Model.Courses
 
         [JsonProperty("color")]
         public PlayerColor Color { get; private set; }
+
+        // Used temporarily to update json files
+        public void UpdateFen(string fen)
+        {
+            Fen = fen;
+        }
     }
 }
