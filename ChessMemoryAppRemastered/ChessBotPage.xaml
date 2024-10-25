@@ -26,6 +26,7 @@
         </Grid.ColumnDefinitions>
 
         <Label x:Name="lblTitle"
+               Text="Chess Bot"
                Grid.Column="0"
                Grid.Row="0"
                Grid.ColumnSpan="6"

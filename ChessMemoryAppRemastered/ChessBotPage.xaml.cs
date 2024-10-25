@@ -11,7 +11,6 @@ namespace ChessMemoryAppRemastered;
 
 [QueryProperty(nameof(Model.Courses.Course), "course")]
 [QueryProperty(nameof(Model.Courses.Chapter), "chapter")]
-[QueryProperty(nameof(Model.Courses.Variation), "variation")]
 public partial class ChessBotPage : ContentPage
 {
     private List<ChessBoardState> history = [];
@@ -22,7 +21,6 @@ public partial class ChessBotPage : ContentPage
     private UISquareSelectionTracker squareSelectionTracker;
     public Course? Course { get; set; }
     public Chapter? Chapter { get; set; }
-    public Variation? Variation { get; set; }
     private int currentVariationMove = 0;
     private MnemonicsWordGenerator mnemonicsWordGenerator = new();
 
@@ -34,7 +32,6 @@ public partial class ChessBotPage : ContentPage
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        lblTitle.Text = Variation!.Name;
         var clickRecognizer = new TapGestureRecognizer();
         clickRecognizer.Tapped += ClickRecognizer_Tapped;
         lblTitle.GestureRecognizers.Add(clickRecognizer);
@@ -76,7 +73,7 @@ public partial class ChessBotPage : ContentPage
 
     private async void btnNextMove_Clicked(object sender, EventArgs e)
     {
-        var variationMoveSelector = new VariationMoveSelector(Chapter!);
+        var variationMoveSelector = new VariationMoveSelector(Course!);
         string? chessBotMoveNotation = variationMoveSelector.TryGetRandomMoveNotationFromVariations(chessBoard);
         bool reachedLastMove = chessBotMoveNotation == null;
         if (reachedLastMove)

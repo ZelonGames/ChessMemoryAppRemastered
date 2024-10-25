@@ -22,18 +22,23 @@ namespace ChessMemoryAppRemastered.Model.ChessBot
             "Arkhangelsk #5",
             "Arkhangelsk #6",
             "Arkhangelsk #7",
+            "9...Ba7?",
+            "10...Bxa5",
+            "10...Nxa5 #1",
+            "10...Nxa5 #2",
+            "10...Nxa5 #3",
         ];
         private readonly List<Variation> variations = [];
 
-        public VariationMoveSelector(Chapter chapter)
+        public VariationMoveSelector(Course course)
         {
-            variations = chapter.Variations.Where(x => variationNames.Contains(x.Value.Name)).Select(x => x.Value).ToList();
+            variations = course.Chapters.SelectMany(x => x.Value.Variations.Where(x => variationNames.Contains(x.Value.Name)).Select(x => x.Value)).ToList();
         }
 
         public string? TryGetRandomMoveNotationFromVariations(ChessBoardState chessBoardState)
         {
             string fen = FenHelper.ConvertToFenString(chessBoardState);
-            var candidateVariations = variations.Where(x => x.Moves.Any(x => x.Fen == fen)).ToList();
+            var candidateVariations = variations.Where(x => x.Moves.Any(x => x.Fen == fen));
             var candidateMoves = new Dictionary<string, CourseMove>();
 
             foreach (var variation in candidateVariations)
