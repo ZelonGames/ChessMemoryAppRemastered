@@ -1,19 +1,18 @@
-using ChessMemoryAppRemastered.Model;
 using ChessMemoryAppRemastered.Model.ChessBoard;
 using ChessMemoryAppRemastered.Model.ChessBoard.FEN;
 using ChessMemoryAppRemastered.Model.ChessBoard.Game;
+using ChessMemoryAppRemastered.Model.ChessBot;
 using ChessMemoryAppRemastered.Model.Courses;
 using ChessMemoryAppRemastered.Model.Mnemomics;
 using ChessMemoryAppRemastered.Model.UI_Components;
 using ChessMemoryAppRemastered.Model.UI_Integration;
-using Newtonsoft.Json;
 
 namespace ChessMemoryAppRemastered;
 
 [QueryProperty(nameof(Model.Courses.Course), "course")]
 [QueryProperty(nameof(Model.Courses.Chapter), "chapter")]
 [QueryProperty(nameof(Model.Courses.Variation), "variation")]
-public partial class MemoryPage : ContentPage
+public partial class ChessBotPage : ContentPage
 {
     private List<ChessBoardState> history = [];
     private ChessBoardState chessBoard;
@@ -21,22 +20,20 @@ public partial class MemoryPage : ContentPage
     private UIPieceIntegration pieceIntegration;
     private UIPieceMover pieceMover;
     private UISquareSelectionTracker squareSelectionTracker;
-    public Course? Course {  get; set; }
+    public Course? Course { get; set; }
     public Chapter? Chapter { get; set; }
     public Variation? Variation { get; set; }
     private int currentVariationMove = 0;
     private MnemonicsWordGenerator mnemonicsWordGenerator = new();
 
-    public MemoryPage()
+    public ChessBotPage()
     {
         InitializeComponent();
-        SizeChanged += MainPage_SizeChanged;
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        Variation = Course!.Chapters.Values.SelectMany(x => x.Variations.Where(x => x.Value.Name == "6...d6 7.O-O O-O 8.h3 Ba7 9.Re1 Nh5 #7")).First().Value;
         lblTitle.Text = Variation!.Name;
         var clickRecognizer = new TapGestureRecognizer();
         clickRecognizer.Tapped += ClickRecognizer_Tapped;
@@ -53,7 +50,7 @@ public partial class MemoryPage : ContentPage
 
     private void LoadBoard()
     {
-        chessBoard = ChessBoardFenGenerator.Generate("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+        chessBoard = ChessBoardFenGenerator.Generate(Course!.PreviewFen);
         history.Add(chessBoard);
         uIChessBoard = new UIChessBoard(absoluteLayoutChessBoard, chessBoard);
 
@@ -79,11 +76,15 @@ public partial class MemoryPage : ContentPage
 
     private async void btnNextMove_Clicked(object sender, EventArgs e)
     {
-        if (currentVariationMove >= Variation!.Moves.Count)
+        var variationMoveSelector = new VariationMoveSelector(Chapter!);
+        string? chessBotMoveNotation = variationMoveSelector.TryGetRandomMoveNotationFromVariations(chessBoard);
+        bool reachedLastMove = chessBotMoveNotation == null;
+        if (reachedLastMove)
             return;
 
-        var variationMove = Variation!.Moves[currentVariationMove];
-        LegalMove move = MoveNotationHelper.TryGetLegalMoveFromNotation(chessBoard, variationMove.MoveNotation);
+        string moveNotation = chessBotMoveNotation!;
+
+        LegalMove move = MoveNotationHelper.TryGetLegalMoveFromNotation(chessBoard, moveNotation);
         await mnemonicsWordGenerator.AddWordFromMove(move);
         UpdateMnemonicsText();
         ChessBoardState nextState = MoveHelper.GetNextStateFromMove(move);

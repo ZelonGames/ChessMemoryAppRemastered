@@ -17,7 +17,7 @@ public partial class VariationsPage : ContentPage
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        Title = Chapter.Name;
+        Title = Chapter!.Name;
 
         variationsLayout.Clear();
         foreach (var variation in Chapter.Variations)
@@ -35,13 +35,13 @@ public partial class VariationsPage : ContentPage
     {
         var clickedButton = (Button)sender;
 
-        variation = Chapter.GetVariationByName(clickedButton!.Text);
+        variation = Chapter!.GetVariationByName(clickedButton!.Text);
         var parameters = new Dictionary<string, object>()
                 {
-                    { "course", Course },
+                    { "course", Course! },
                     { "chapter", Chapter },
                     { "variation", variation! },
                 };
-        await Shell.Current.GoToAsync(nameof(MemoryPage), parameters);
+        await Shell.Current.GoToAsync(nameof(ChessBotPage), parameters);
     }
 }

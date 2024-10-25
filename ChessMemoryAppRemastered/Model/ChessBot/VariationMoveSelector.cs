@@ -1,5 +1,7 @@
 ﻿
 using ChessMemoryAppRemastered.Model.ChessBoard;
+using ChessMemoryAppRemastered.Model.ChessBoard.FEN;
+using ChessMemoryAppRemastered.Model.ChessBoard.Game;
 using ChessMemoryAppRemastered.Model.Courses;
 using System;
 using System.Collections.Generic;
@@ -11,12 +13,43 @@ namespace ChessMemoryAppRemastered.Model.ChessBot
 {
     public class VariationMoveSelector
     {
-        private List<Variation> variations = [];
-        private ChessBoardState chessBoardState;
+        private readonly static Random rnd = new();
+        private readonly List<string> variationNames = [
+            "Arkhangelsk #1",
+            "Arkhangelsk #2",
+            "Arkhangelsk #3",
+            "Arkhangelsk #4",
+            "Arkhangelsk #5",
+            "Arkhangelsk #6",
+            "Arkhangelsk #7",
+        ];
+        private readonly List<Variation> variations = [];
 
-        public void GetRandomMoveFromVariations(int currentMove)
+        public VariationMoveSelector(Chapter chapter)
         {
+            variations = chapter.Variations.Where(x => variationNames.Contains(x.Value.Name)).Select(x => x.Value).ToList();
+        }
 
+        public string? TryGetRandomMoveNotationFromVariations(ChessBoardState chessBoardState)
+        {
+            string fen = FenHelper.ConvertToFenString(chessBoardState);
+            var candidateVariations = variations.Where(x => x.Moves.Any(x => x.Fen == fen)).ToList();
+            var candidateMoves = new Dictionary<string, CourseMove>();
+
+            foreach (var variation in candidateVariations)
+            {
+                CourseMove move = variation.Moves.Where(x => x.Fen == fen).First();
+                int currentIndex = variation.Moves.IndexOf(move);
+                if (currentIndex + 1 >= variation.Moves.Count)
+                    continue;
+                CourseMove nextMove = variation.Moves[currentIndex + 1];
+                if (variation.Moves.Count > currentIndex + 1)
+                    candidateMoves.TryAdd(nextMove.MoveNotation, nextMove);
+            }
+            if (candidateMoves.Count == 0)
+                return null;
+
+            return candidateMoves.Values.ToList()[rnd.Next(0, candidateMoves.Count)].MoveNotation;
         }
     }
 }

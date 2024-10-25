@@ -33,7 +33,7 @@ public partial class ChaptersPage : ContentPage
     {
         course = await Course.CreateInstanceFromJson("The Grand Ruy Lopez");
         Title = course.Name;
-        course.UpdateFens();
+        //course.UpdateFens();
 
         foreach (var chapter in course.Chapters)
         {
