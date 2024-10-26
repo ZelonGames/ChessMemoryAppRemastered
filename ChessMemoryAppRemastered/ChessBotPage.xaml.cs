@@ -10,7 +10,6 @@ using ChessMemoryAppRemastered.Model.UI_Integration;
 namespace ChessMemoryAppRemastered;
 
 [QueryProperty(nameof(Model.Courses.Course), "course")]
-[QueryProperty(nameof(Model.Courses.Chapter), "chapter")]
 public partial class ChessBotPage : ContentPage
 {
     private List<ChessBoardState> history = [];
@@ -20,7 +19,6 @@ public partial class ChessBotPage : ContentPage
     private UIPieceMover pieceMover;
     private UISquareSelectionTracker squareSelectionTracker;
     public Course? Course { get; set; }
-    public Chapter? Chapter { get; set; }
     private int currentVariationMove = 0;
     private MnemonicsWordGenerator mnemonicsWordGenerator = new();
 
@@ -127,6 +125,6 @@ public partial class ChessBotPage : ContentPage
 
     private void UpdateMnemonicsText()
     {
-        lblWordMove.Text = mnemonicsWordGenerator.Words.Count > 0 ? mnemonicsWordGenerator.Words.Last() : "";
+        lblWordMove.Text = mnemonicsWordGenerator.LastWord;
     }
 }

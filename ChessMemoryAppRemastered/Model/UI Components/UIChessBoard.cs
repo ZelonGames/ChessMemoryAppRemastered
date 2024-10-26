@@ -69,6 +69,9 @@ namespace ChessMemoryAppRemastered.Model.UI_Components
 
         public void ReloadPieces(ChessBoardState newChessBoardState)
         {
+            if (chessBoardState == newChessBoardState && pieces.Count > 0)
+                return;
+
             ChessBoardState oldChessBoardState = chessBoardState;
 
             var oldPieces = GetOldPieces(oldChessBoardState, newChessBoardState);

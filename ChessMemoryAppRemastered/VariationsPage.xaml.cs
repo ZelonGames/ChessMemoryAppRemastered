@@ -33,7 +33,7 @@ public partial class VariationsPage : ContentPage
 
     private async void Variation_Button_Clicked(object? sender, EventArgs e)
     {
-        var clickedButton = (Button)sender;
+        var clickedButton = (Button)sender!;
 
         variation = Chapter!.GetVariationByName(clickedButton!.Text);
         var parameters = new Dictionary<string, object>()
@@ -42,6 +42,6 @@ public partial class VariationsPage : ContentPage
                     { "chapter", Chapter },
                     { "variation", variation! },
                 };
-        await Shell.Current.GoToAsync(nameof(ChessBotPage), parameters);
+        await Shell.Current.GoToAsync(nameof(MemoryPage), parameters);
     }
 }

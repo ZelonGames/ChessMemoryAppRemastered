@@ -10,6 +10,10 @@
              >
 
     <ScrollView>
-        <VerticalStackLayout x:Name="variationsLayout"/>
+        <VerticalStackLayout x:Name="variationsLayout">
+            <Button x:Name="btnChessBot"
+                    Text="Chess Bot"
+                    Clicked="btnChessBot_Clicked"/>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

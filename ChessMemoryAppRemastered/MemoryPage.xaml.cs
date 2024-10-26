@@ -15,16 +15,15 @@ namespace ChessMemoryAppRemastered;
 [QueryProperty(nameof(Model.Courses.Variation), "variation")]
 public partial class MemoryPage : ContentPage
 {
-    private List<ChessBoardState> history = [];
     private ChessBoardState chessBoard;
     private UIChessBoard? uIChessBoard;
-    private UIPieceIntegration pieceIntegration;
-    private UIPieceMover pieceMover;
-    private UISquareSelectionTracker squareSelectionTracker;
-    public Course? Course {  get; set; }
+    private UIPieceIntegration? pieceIntegration;
+    private UIPieceMover? pieceMover;
+    private UISquareSelectionTracker? squareSelectionTracker;
+    public Course? Course { get; set; }
     public Chapter? Chapter { get; set; }
     public Variation? Variation { get; set; }
-    private int currentVariationMove = 0;
+    public VariationNavigator? variationNavigator;
     private MnemonicsWordGenerator mnemonicsWordGenerator = new();
 
     public MemoryPage()
@@ -36,7 +35,8 @@ public partial class MemoryPage : ContentPage
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        Variation = Course!.Chapters.Values.SelectMany(x => x.Variations.Where(x => x.Value.Name == "6...d6 7.O-O O-O 8.h3 Ba7 9.Re1 Nh5 #7")).First().Value;
+        //Variation = Course!.Chapters.Values.SelectMany(x => x.Variations.Where(x => x.Value.Name == "6...d6 7.O-O O-O 8.h3 Ba7 9.Re1 Nh5 #7")).First().Value;
+        variationNavigator = new VariationNavigator(Course!, Variation!);
         lblTitle.Text = Variation!.Name;
         var clickRecognizer = new TapGestureRecognizer();
         clickRecognizer.Tapped += ClickRecognizer_Tapped;
@@ -53,8 +53,7 @@ public partial class MemoryPage : ContentPage
 
     private void LoadBoard()
     {
-        chessBoard = ChessBoardFenGenerator.Generate("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-        history.Add(chessBoard);
+        chessBoard = variationNavigator!.GetStartState();
         uIChessBoard = new UIChessBoard(absoluteLayoutChessBoard, chessBoard);
 
         UpdateChessBoardPosition(Width, Height);
@@ -77,51 +76,40 @@ public partial class MemoryPage : ContentPage
         absoluteLayoutChessBoard.TranslationY = 0;// pageHeight * 0.5f - uIChessBoard.TotalSize * 0.5f;
     }
 
-    private async void btnNextMove_Clicked(object sender, EventArgs e)
+    private async void BtnNextMove_Clicked(object sender, EventArgs e)
     {
-        if (currentVariationMove >= Variation!.Moves.Count)
+        ChessBoardState oldChessboard = chessBoard;
+        chessBoard = variationNavigator!.GetNextState(chessBoard);
+        if (oldChessboard == chessBoard)
             return;
 
-        var variationMove = Variation!.Moves[currentVariationMove];
-        LegalMove move = MoveNotationHelper.TryGetLegalMoveFromNotation(chessBoard, variationMove.MoveNotation);
-        await mnemonicsWordGenerator.AddWordFromMove(move);
+        await mnemonicsWordGenerator.AddWordFromMove(variationNavigator.CurrentMove);
         UpdateMnemonicsText();
-        ChessBoardState nextState = MoveHelper.GetNextStateFromMove(move);
-        chessBoard = nextState;
-        uIChessBoard!.ReloadPieces(nextState);
-        currentVariationMove++;
-
-        history.Add(nextState);
+        uIChessBoard!.ReloadPieces(chessBoard);
     }
 
-    private void btnPreviousMove_Clicked(object sender, EventArgs e)
+    private void BtnPreviousMove_Clicked(object sender, EventArgs e)
     {
-        if (currentVariationMove <= 0)
-            return;
-
-        history.Remove(history.Last());
-        chessBoard = history.Last();
+        chessBoard = variationNavigator!.GetPreviousState(chessBoard);
         uIChessBoard!.ReloadPieces(chessBoard);
         mnemonicsWordGenerator.RemoveLastWord();
         UpdateMnemonicsText();
-        currentVariationMove--;
     }
 
-    private void btnCopy_Clicked(object sender, EventArgs e)
+    private void BtnCopy_Clicked(object sender, EventArgs e)
     {
         //Clipboard.SetTextAsync(lblMnemonics.Text);
     }
 
-    private void btnReset_Clicked(object? sender, EventArgs? e)
+    private void BtnReset_Clicked(object? sender, EventArgs? e)
     {
-        currentVariationMove = 0;
         mnemonicsWordGenerator = new();
-        history.Clear();
         UpdateMnemonicsText();
-        LoadBoard();
+        chessBoard = variationNavigator!.GetStartState();
+        uIChessBoard!.ReloadPieces(chessBoard);
     }
 
-    private void btnToggleText_Clicked(object sender, EventArgs e)
+    private void BtnToggleText_Clicked(object sender, EventArgs e)
     {
         lblWordMove.IsVisible = !lblWordMove.IsVisible;
         UpdateMnemonicsText();
@@ -129,6 +117,6 @@ public partial class MemoryPage : ContentPage
 
     private void UpdateMnemonicsText()
     {
-        lblWordMove.Text = mnemonicsWordGenerator.Words.Count > 0 ? mnemonicsWordGenerator.Words.Last() : "";
+        lblWordMove.Text = mnemonicsWordGenerator.LastWord;
     }
 }

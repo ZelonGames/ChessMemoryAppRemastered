@@ -57,4 +57,13 @@ public partial class ChaptersPage : ContentPage
                 };
         await Shell.Current.GoToAsync(nameof(VariationsPage), parameters);
     }
+
+    private async void btnChessBot_Clicked(object sender, EventArgs e)
+    {
+        var parameters = new Dictionary<string, object>()
+                {
+                    { "course", course! },
+                };
+        await Shell.Current.GoToAsync(nameof(ChessBotPage), parameters);
+    }
 }

@@ -11,8 +11,8 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
 {
     public class MnemonicsWordGenerator
     {
-        private readonly List<string> words = [];
-        public List<string> Words => words;
+        private readonly Stack<string> words = [];
+        public string LastWord => words.Count > 0 ? words.Peek() : "";
 
         private string? previousWord = null;
         private MnemonicsNotation? mnemonicsNotation;
@@ -29,8 +29,11 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
 
         public void RemoveLastWord()
         {
-            words.RemoveAt(words.Count - 1);
-            previousWord = words.Count > 0 ? words.Last() : null;
+            if (words.Count == 0)
+                return;
+
+            words.Pop();
+            previousWord = words.Count > 0 ? words.Peek() : null;
         }
 
         public async Task AddWordFromMove(LegalMove move)
@@ -52,12 +55,12 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
                 if (piece.Value == move.GetPieceToMove())
                     break;
             }
-            
+
             var mnemonicsNotation = await MnemonicsNotation.CreateInstanceFromJson();
             string mnemonicsSquare = move.ToCoordinate.ToAlphabeticCoordinate();
             List<string> candidateWords = mnemonicsNotation!.GetWordsFromSquare(mnemonicsSquare, amountOfCandidatePieces);
             string word = candidateWords[0];
-            
+
             if (previousWord != null && word == previousWord)
             {
                 int indexOfWord = candidateWords.IndexOf(word);
@@ -65,7 +68,7 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
                     word = candidateWords[indexOfWord + 1];
             }
 
-            words!.Add(word);
+            words!.Push(word);
             previousWord = word;
         }
 
