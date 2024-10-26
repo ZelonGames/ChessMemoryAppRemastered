@@ -19,10 +19,10 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
 
         public MnemonicsWordGenerator()
         {
-            Init();
+            InitAsync();
         }
 
-        private async void Init()
+        private async void InitAsync()
         {
             mnemonicsNotation = await MnemonicsNotation.CreateInstanceFromJson();
         }
