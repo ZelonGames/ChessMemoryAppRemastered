@@ -92,7 +92,7 @@ public partial class MemoryPage : ContentPage
     {
         chessBoard = variationNavigator!.GetPreviousState(chessBoard);
         uIChessBoard!.ReloadPieces(chessBoard);
-        mnemonicsWordGenerator.RemoveLastWord();
+        mnemonicsWordGenerator.TryRemoveLastWord();
         UpdateMnemonicsText();
     }
 

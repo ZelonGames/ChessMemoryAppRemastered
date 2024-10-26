@@ -43,22 +43,22 @@
             <Grid ColumnDefinitions="*,*">
                 <Button x:Name="btnPreviousMove"
                         Text="&lt;--"
-                        Clicked="btnPreviousMove_Clicked"
+                        Clicked="BtnPreviousMove_Clicked"
                         Grid.Column="0"/>
                 <Button x:Name="btnNextMove"
                         Text="--&gt;"
-                        Clicked="btnNextMove_Clicked"
+                        Clicked="BtnNextMove_Clicked"
                         Grid.Column="1"/>
             </Grid>
             <Button x:Name="btnReset"
                     Text="Reset"
-                    Clicked="btnReset_Clicked"/>
+                    Clicked="BtnReset_Clicked"/>
             <Button x:Name="btnToggleText"
                     Text="Toggle text"
-                    Clicked="btnToggleText_Clicked"/>
+                    Clicked="BtnToggleText_Clicked"/>
             <Button x:Name="btnCopy"
                     Text="Copy"
-                    Clicked="btnCopy_Clicked"/>
+                    Clicked="BtnCopy_Clicked"/>
 
             <Label x:Name="lblWordMove"
                    TextColor="White"

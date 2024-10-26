@@ -27,12 +27,12 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
             mnemonicsNotation = await MnemonicsNotation.CreateInstanceFromJson();
         }
 
-        public void RemoveLastWord()
+        public void TryRemoveLastWord()
         {
             if (words.Count == 0)
                 return;
-
-            previousWord = words.Count > 0 ? words.Pop() : null;
+            words.Pop();
+            previousWord = words.Count > 0 ? words.Peek() : null;
         }
 
         public async Task AddWordFromMove(LegalMove move)

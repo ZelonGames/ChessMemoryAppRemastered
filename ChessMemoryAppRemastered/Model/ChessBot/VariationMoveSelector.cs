@@ -29,32 +29,43 @@ namespace ChessMemoryAppRemastered.Model.ChessBot
             "10...Nxa5 #3",
         ];
         private readonly List<Variation> variations = [];
+        public LegalMove? LastMovePlayed { get; private set; }
+        public Variation? CurrentVariation { get; private set; }
 
         public VariationMoveSelector(Course course)
         {
             variations = course.Chapters.SelectMany(x => x.Value.Variations.Where(x => variationNames.Contains(x.Value.Name)).Select(x => x.Value)).ToList();
         }
 
-        public string? TryGetRandomMoveNotationFromVariations(ChessBoardState chessBoardState)
+        public ChessBoardState GetNextStateFromRandomMove(ChessBoardState chessBoardState)
         {
             string fen = FenHelper.ConvertToFenString(chessBoardState);
             var candidateVariations = variations.Where(x => x.Moves.Any(x => x.Fen == fen));
             var candidateMoves = new Dictionary<string, CourseMove>();
+            var candidateVariationsHash = new Dictionary<string, Variation>();
 
             foreach (var variation in candidateVariations)
             {
-                CourseMove move = variation.Moves.Where(x => x.Fen == fen).First();
-                int currentIndex = variation.Moves.IndexOf(move);
+                int currentIndex = variation.Moves.FindIndex(x => x.Fen == fen);
                 if (currentIndex + 1 >= variation.Moves.Count)
                     continue;
                 CourseMove nextMove = variation.Moves[currentIndex + 1];
                 if (variation.Moves.Count > currentIndex + 1)
+                {
                     candidateMoves.TryAdd(nextMove.MoveNotation, nextMove);
+                    candidateVariationsHash.TryAdd(nextMove.MoveNotation, variation);
+                }
             }
             if (candidateMoves.Count == 0)
-                return null;
+                return chessBoardState;
 
-            return candidateMoves.Values.ToList()[rnd.Next(0, candidateMoves.Count)].MoveNotation;
+            string randomMoveNotation = candidateMoves.Values.ToList()[rnd.Next(0, candidateMoves.Count)].MoveNotation;
+            CurrentVariation = candidateVariationsHash[randomMoveNotation];
+
+            LegalMove legalMove = MoveNotationHelper.TryGetLegalMoveFromNotation(chessBoardState, randomMoveNotation);
+            LastMovePlayed = legalMove;
+            
+            return MoveHelper.GetNextStateFromMove(legalMove);
         }
     }
 }
