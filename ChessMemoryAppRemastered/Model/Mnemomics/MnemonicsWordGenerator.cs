@@ -32,8 +32,7 @@ namespace ChessMemoryAppRemastered.Model.Mnemomics
             if (words.Count == 0)
                 return;
 
-            words.Pop();
-            previousWord = words.Count > 0 ? words.Peek() : null;
+            previousWord = words.Count > 0 ? words.Pop() : null;
         }
 
         public async Task AddWordFromMove(LegalMove move)
