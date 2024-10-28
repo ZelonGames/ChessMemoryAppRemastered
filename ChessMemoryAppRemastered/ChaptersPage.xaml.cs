@@ -1,4 +1,4 @@
-using ChessMemoryAppRemastered.Model.ChessBoard;
+﻿using ChessMemoryAppRemastered.Model.ChessBoard;
 using ChessMemoryAppRemastered.Model.ChessBoard.FEN;
 using ChessMemoryAppRemastered.Model.ChessBoard.Game;
 using ChessMemoryAppRemastered.Model.Courses;
@@ -17,20 +17,15 @@ public partial class ChaptersPage : ContentPage
         InitializeComponent();
         //ChessBoardState chessBoardState = ChessBoardFenGenerator.Generate("r1q1r1k1/p2bbppp/2pp2n1/Pp6/2Q1PP2/2N1B3/1PP1B1PP/3R1RK1 w - b6 0 17");
         //MoveNotationHelper.TryGetLegalMoveFromNotation(chessBoardState, "axb6");
-
         Loaded += VariationsPage_Loaded;
     }
 
-    private async void Test()
+    private async void VariationsPage_Loaded(object? sender, EventArgs e)
     {
+        await LoadChapters();
     }
 
-    private void VariationsPage_Loaded(object? sender, EventArgs e)
-    {
-        LoadChapters();
-    }
-
-    private async void LoadChapters()
+    private async Task LoadChapters()
     {
         var elementsToKeep = new[] { "btnChessBot" };
 

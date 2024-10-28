@@ -51,7 +51,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard.Game
                 new(3, playerSide),
             };
 
-            if (chessBoardState.PiecesState.Pieces.TryGetValue(new Coordinate(7, playerSide), out Piece? piece))
+            if (chessBoardState.PiecesState.Pieces.TryGetValue(new Coordinate(0, playerSide), out Piece? piece))
             {
                 if (piece is not Rook || piece.color != king.color)
                     return false;

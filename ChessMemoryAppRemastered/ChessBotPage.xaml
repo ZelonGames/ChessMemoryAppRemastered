@@ -65,7 +65,7 @@
                                HorizontalOptions="Center"
                                Margin="0, 0, 0, 10">
             <Label x:Name="lblWordMove"
-                   TextColor="White"
+                   TextColor="{StaticResource White}"
                    FontSize="40"
                    Grid.ColumnSpan="3"></Label>
         </HorizontalStackLayout>

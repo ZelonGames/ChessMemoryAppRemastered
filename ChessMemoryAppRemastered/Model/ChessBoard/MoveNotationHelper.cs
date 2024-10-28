@@ -13,6 +13,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
     {
         public static string GetCoordinatesFromMoveNotation(string moveNotation)
         {
+            moveNotation = moveNotation.Replace("+", "").Replace("#", "");
             if (moveNotation is "O-O" or "O-O-O")
                 return moveNotation;
 
@@ -77,6 +78,7 @@ namespace ChessMemoryAppRemastered.Model.ChessBoard
 
         public static char GetPieceTypeCharFromMoveNotation(string moveNotation)
         {
+            moveNotation = moveNotation.Replace("+", "").Replace("#", "");
             if (moveNotation is "O-O" or "O-O-O")
                 return 'K';
             char firstChar = moveNotation[0];

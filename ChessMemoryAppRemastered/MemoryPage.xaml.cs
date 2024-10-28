@@ -34,12 +34,13 @@ public partial class MemoryPage : ContentPage
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        //Variation = Course!.Chapters.Values.SelectMany(x => x.Variations.Where(x => x.Value.Name == "6...d6 7.O-O O-O 8.h3 Ba7 9.Re1 Nh5 #7")).First().Value;
+        //Variation = Course!.Chapters.Values.SelectMany(x => x.Variations.Where(x => x.Value.Name == "Najdorf 6.Rg1 e5")).First().Value;
         variationNavigator = new VariationNavigator(Course!, Variation!);
         lblTitle.Text = Variation!.Name;
         var clickRecognizer = new TapGestureRecognizer();
         clickRecognizer.Tapped += ClickRecognizer_Tapped;
         lblTitle.GestureRecognizers.Add(clickRecognizer);
+        
         LoadBoard();
     }
 
