@@ -16,6 +16,7 @@ public partial class VariationsPage : ContentPage
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
+        variationsLayout.Clear();
         base.OnNavigatedTo(args);
         Title = Chapter!.Name;
 
@@ -25,7 +26,13 @@ public partial class VariationsPage : ContentPage
             var button = new Button()
             {
                 Text = variation.Value.Name,
+                CornerRadius = 0,
+                Padding = new Thickness(0, 20, 0, 20),
+                FontSize = 20,
+                Margin = 0,
             };
+            if (variationsLayout.Children.Count % 2 == 1)
+                button.BackgroundColor = Color.FromArgb("#4a372a");
             button.Clicked += Variation_Button_Clicked;
             variationsLayout.Add(button);
         }

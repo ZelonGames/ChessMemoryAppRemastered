@@ -3,6 +3,7 @@ using ChessMemoryAppRemastered.Model.ChessBoard.FEN;
 using ChessMemoryAppRemastered.Model.ChessBoard.Game;
 using ChessMemoryAppRemastered.Model.Courses;
 using ChessMemoryAppRemastered.Model.Mnemomics;
+using System.Text.RegularExpressions;
 
 namespace ChessMemoryAppRemastered;
 
@@ -31,16 +32,32 @@ public partial class ChaptersPage : ContentPage
 
     private async void LoadChapters()
     {
+        var elementsToKeep = new[] { "btnChessBot" };
+
+        for (int i = variationsLayout.Children.Count - 1; i >= 0; i--)
+        {
+            var child = variationsLayout.Children[i];
+            if (!elementsToKeep.Contains(((Button)child).StyleId))
+                variationsLayout.Children.RemoveAt(i);
+        }
+
         course = await Course.CreateInstanceFromJson("The Grand Ruy Lopez");
         Title = course.Name;
         //course.UpdateFens();
 
+        var sordedList = course.Chapters.OrderBy(x => Regex.Replace(x.Value.Name.ToLower(), "[0-9]", ""));
         foreach (var chapter in course.Chapters)
         {
             var button = new Button()
             {
                 Text = chapter.Value.Name,
+                CornerRadius = 0,
+                Padding = new Thickness(0, 20, 0, 20),
+                FontSize = 20,
+                Margin = 0,
             };
+            if (variationsLayout.Children.Count % 2 == 1)
+                button.BackgroundColor = Color.FromArgb("#4a372a");
             button.Clicked += Chapter_Button_Clicked;
             variationsLayout.Add(button);
         }

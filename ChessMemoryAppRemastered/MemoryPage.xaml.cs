@@ -29,7 +29,6 @@ public partial class MemoryPage : ContentPage
     public MemoryPage()
     {
         InitializeComponent();
-        SizeChanged += MainPage_SizeChanged;
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
@@ -55,25 +54,7 @@ public partial class MemoryPage : ContentPage
     {
         chessBoard = variationNavigator!.GetStartState();
         uIChessBoard = new UIChessBoard(absoluteLayoutChessBoard, chessBoard);
-
-        UpdateChessBoardPosition(Width, Height);
-        MainPage_SizeChanged(this, null);
         uIChessBoard.ReloadPieces(chessBoard);
-    }
-
-    private void MainPage_SizeChanged(object? sender, EventArgs? e)
-    {
-        if (uIChessBoard == null)
-            return;
-
-        var page = sender as ContentPage;
-        UpdateChessBoardPosition(page!.Width, page.Content.Height);
-    }
-
-    private void UpdateChessBoardPosition(double pageWidth, double pageHeight)
-    {
-        absoluteLayoutChessBoard.TranslationX = 0;
-        absoluteLayoutChessBoard.TranslationY = 0;// pageHeight * 0.5f - uIChessBoard.TotalSize * 0.5f;
     }
 
     private async void BtnNextMove_Clicked(object sender, EventArgs e)
@@ -111,7 +92,7 @@ public partial class MemoryPage : ContentPage
 
     private void BtnToggleText_Clicked(object sender, EventArgs e)
     {
-        lblWordMove.IsVisible = !lblWordMove.IsVisible;
+        lblWordMove.Opacity = lblWordMove.Opacity == 1 ? 0 : 1;
         UpdateMnemonicsText();
     }
 

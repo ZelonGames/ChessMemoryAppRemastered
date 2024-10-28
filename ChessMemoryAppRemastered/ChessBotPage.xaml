@@ -16,12 +16,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition x:Name="columnChessBoard" Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition x:Name="columnChessBoard" Width="0.6*"/>
+            <ColumnDefinition Width="0.2*"/>
 
         </Grid.ColumnDefinitions>
 
@@ -31,15 +28,14 @@
                Grid.Row="0"
                Grid.ColumnSpan="6"
                FontSize="30"
-               Margin="0, 0, 0, 20"/>
+               Margin="10, 0, 0, 20"/>
 
 
         <VerticalStackLayout 
-            WidthRequest="200"
-            HorizontalOptions="Start"
             Grid.Row="1"
             Grid.Column="0"
-            Grid.ColumnSpan="2">
+            HorizontalOptions="FillAndExpand"
+            Margin="5, 0, 5, 0">
             <Grid ColumnDefinitions="*,*">
                 <Button x:Name="btnPreviousMove"
                         Text="&lt;--"
@@ -56,20 +52,22 @@
             <Button x:Name="btnToggleText"
                     Text="Toggle text"
                     Clicked="BtnToggleText_Clicked"/>
-            <Button x:Name="btnCopy"
-                    Text="Copy"
-                    Clicked="BtnCopy_Clicked"/>
-
-            <Label x:Name="lblWordMove"
-                   TextColor="White"
-                   FontSize="35"
-                   HorizontalTextAlignment="Center"></Label>
         </VerticalStackLayout>
 
         <AbsoluteLayout x:Name="absoluteLayoutChessBoard"
                         Grid.Row="1"
-                        Grid.Column="3"
-                        Grid.ColumnSpan="3"
-                        Margin="0, 0, 0, 50"/>
+                        Grid.Column="1"
+                        Margin="0, 0, 0, 10"/>
+
+        <HorizontalStackLayout Grid.Row="2" 
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               HorizontalOptions="Center"
+                               Margin="0, 0, 0, 10">
+            <Label x:Name="lblWordMove"
+                   TextColor="White"
+                   FontSize="40"
+                   Grid.ColumnSpan="3"></Label>
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>

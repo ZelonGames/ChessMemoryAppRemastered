@@ -5,7 +5,7 @@
              Title="VariationsPage"
              BackgroundColor="{StaticResource Black}"
              Shell.BackgroundColor="{StaticResource Black}"
-             Shell.TitleColor="White"
+             Shell.TitleColor="{StaticResource White}"
              Shell.TabBarBackgroundColor="{StaticResource Black}"
              >
 

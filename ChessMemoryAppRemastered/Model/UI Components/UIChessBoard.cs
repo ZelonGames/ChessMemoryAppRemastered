@@ -18,8 +18,6 @@ namespace ChessMemoryAppRemastered.Model.UI_Components
         public readonly Dictionary<Coordinate, UIPiece> pieces = [];
         public ChessBoardState chessBoardState { get; private set; }
 
-        public int TotalSize { get; private set; }
-
         public UIChessBoard(AbsoluteLayout chessBoardLayout, ChessBoardState chessBoardState)
         {
             this.chessBoardState = chessBoardState;
@@ -40,16 +38,16 @@ namespace ChessMemoryAppRemastered.Model.UI_Components
 
             double minSize = Math.Min(contentView!.Width, contentView.Height);
             double squareSize = (int)(minSize / 8);
+            double totalSize = (int)squareSize * 8;
+            double offsetX = contentView!.Width * 0.5 - totalSize * 0.5;
 
             foreach (var square in squares)
             {
                 square.Value.contentView.WidthRequest = squareSize;
                 square.Value.contentView.HeightRequest = squareSize;
-                square.Value.contentView.TranslationX = square.Key.X * squareSize;
+                square.Value.contentView.TranslationX = offsetX + square.Key.X * squareSize;
                 square.Value.contentView.TranslationY = squareSize * 7 - squareSize * square.Key.Y;
             }
-
-            TotalSize = (int)squareSize * 8;
         }
 
         private void GenerateSquares()

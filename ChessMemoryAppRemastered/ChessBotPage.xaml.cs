@@ -51,17 +51,7 @@ public partial class ChessBotPage : ContentPage
         uIChessBoard = new UIChessBoard(absoluteLayoutChessBoard, chessBoard);
 
         UpdateChessBoardPosition(Width, Height);
-        MainPage_SizeChanged(this, null);
         uIChessBoard.ReloadPieces(chessBoard);
-    }
-
-    private void MainPage_SizeChanged(object? sender, EventArgs? e)
-    {
-        if (uIChessBoard == null)
-            return;
-
-        var page = sender as ContentPage;
-        UpdateChessBoardPosition(page!.Width, page.Content.Height);
     }
 
     private void UpdateChessBoardPosition(double pageWidth, double pageHeight)
@@ -84,7 +74,10 @@ public partial class ChessBotPage : ContentPage
 
     private void BtnPreviousMove_Clicked(object sender, EventArgs e)
     {
-        var variationNavigator = new VariationNavigator(Course!, variationMoveSelector!.CurrentVariation!);
+        if (variationMoveSelector!.CurrentVariation == null)
+            return;
+
+        var variationNavigator = new VariationNavigator(Course!, variationMoveSelector!.CurrentVariation);
         chessBoard = variationNavigator.GetPreviousState(chessBoard);
 
         uIChessBoard!.ReloadPieces(chessBoard);
@@ -106,7 +99,7 @@ public partial class ChessBotPage : ContentPage
 
     private void BtnToggleText_Clicked(object sender, EventArgs e)
     {
-        lblWordMove.IsVisible = !lblWordMove.IsVisible;
+        lblWordMove.Opacity = lblWordMove.Opacity == 1 ? 0 : 1;
         UpdateMnemonicsText();
     }
 

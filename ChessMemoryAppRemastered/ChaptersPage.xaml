@@ -5,15 +5,19 @@
              Title="ChaptersPage"
              BackgroundColor="{StaticResource Black}"
              Shell.BackgroundColor="{StaticResource Black}"
-             Shell.TitleColor="White"
+             Shell.TitleColor="{StaticResource White}"
              Shell.TabBarBackgroundColor="{StaticResource Black}"
              >
 
     <ScrollView>
         <VerticalStackLayout x:Name="variationsLayout">
-            <Button x:Name="btnChessBot"
-                    Text="Chess Bot"
-                    Clicked="btnChessBot_Clicked"/>
+                <Button x:Name="btnChessBot"
+                        Text="Chess Bot"
+                        CornerRadius="0"
+                        Padding="0, 20, 0, 20"
+                        Margin="0, 0, 0, 20"
+                        FontSize="20"
+                        Clicked="btnChessBot_Clicked"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

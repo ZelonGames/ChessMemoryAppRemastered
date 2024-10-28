@@ -28,22 +28,11 @@ namespace ChessMemoryAppRemastered
         public MainPage()
         {
             InitializeComponent();
-
-            Test();
-
-            SizeChanged += MainPage_SizeChanged;
             btnNextMove.Clicked += BtnNextMove_Clicked;
             btnPreviousMove.Clicked += BtnPreviousMove_Clicked;
             btnAddMove.Clicked += BtnAddMove_Clicked;
             btnFirstMove.Clicked += BtnFirstMove_Clicked;
             Loaded += MainPage_Loaded;
-        }
-
-        private async void Test()
-        {
-            var lines = await ChessTextToJson.GetLinesFromFile("chessNotations.json");
-            string data = ChessTextToJson.GenerateJson(lines);
-            await File.WriteAllTextAsync("C:/Test/test.json", data);
         }
 
         private void BtnFirstMove_Clicked(object? sender, EventArgs e)
@@ -95,8 +84,6 @@ namespace ChessMemoryAppRemastered
             chessBoard = ChessBoardFenGenerator.Generate("r1bqkbnr/1ppp1ppp/p1n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4");
             uIChessBoard = new UIChessBoard(absoluteLayoutChessBoard, chessBoard);
 
-            UpdateChessBoardPosition(Width, Height);
-            MainPage_SizeChanged(this, null);
             uIChessBoard.ReloadPieces(chessBoard);
             pieceIntegration = new UIPieceIntegration(uIChessBoard);
             pieceMover = new UIPieceMover(uIChessBoard);
@@ -111,21 +98,6 @@ namespace ChessMemoryAppRemastered
             uIChessBoard!.ReloadPieces(nextChessBoardState);
             pieceIntegration.Dispose();
             pieceIntegration = new UIPieceIntegration(uIChessBoard);
-        }
-
-        private void MainPage_SizeChanged(object? sender, EventArgs? e)
-        {
-            if (uIChessBoard == null)
-                return;
-
-            var page = sender as ContentPage;
-            UpdateChessBoardPosition(page!.Content.Width, page.Content.Height);
-        }
-
-        private void UpdateChessBoardPosition(double pageWidth, double pageHeight)
-        {
-            absoluteLayoutChessBoard.TranslationX = pageWidth * 0.5f - uIChessBoard!.TotalSize * 0.5f;
-            absoluteLayoutChessBoard.TranslationY = pageHeight * 0.5f - uIChessBoard.TotalSize * 0.5f;
         }
     }
 }
