@@ -57,7 +57,7 @@ public partial class ChaptersPage : ContentPage
                 Margin = 0,
             };
             if (variationsLayout.Children.Count % 2 == 1)
-                button.BackgroundColor = Color.FromArgb("#4a372a");
+                button.BackgroundColor = Color.FromArgb("#31231b");
             button.Clicked += Chapter_Button_Clicked;
             variationsLayout.Add(button);
         }
