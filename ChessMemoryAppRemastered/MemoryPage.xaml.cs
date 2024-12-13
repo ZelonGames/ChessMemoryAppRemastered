@@ -1,18 +1,16 @@
 using ChessMemoryAppRemastered.Model;
-using ChessMemoryAppRemastered.Model.ChessBoard;
-using ChessMemoryAppRemastered.Model.ChessBoard.FEN;
-using ChessMemoryAppRemastered.Model.ChessBoard.Game;
-using ChessMemoryAppRemastered.Model.Courses;
+using JChessLib;
+using JChessLib.FEN;
+using JChessLib.Courses;
 using ChessMemoryAppRemastered.Model.Mnemomics;
 using ChessMemoryAppRemastered.Model.UI_Components;
 using ChessMemoryAppRemastered.Model.UI_Integration;
-using Newtonsoft.Json;
 
 namespace ChessMemoryAppRemastered;
 
-[QueryProperty(nameof(Model.Courses.Course), "course")]
-[QueryProperty(nameof(Model.Courses.Chapter), "chapter")]
-[QueryProperty(nameof(Model.Courses.Variation), "variation")]
+[QueryProperty(nameof(JChessLib.Courses.Course), "course")]
+[QueryProperty(nameof(JChessLib.Courses.Chapter), "chapter")]
+[QueryProperty(nameof(JChessLib.Courses.Variation), "variation")]
 public partial class MemoryPage : ContentPage
 {
     private ChessBoardState chessBoard;

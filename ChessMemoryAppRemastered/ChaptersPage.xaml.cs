@@ -1,16 +1,13 @@
-﻿using ChessMemoryAppRemastered.Model.ChessBoard;
-using ChessMemoryAppRemastered.Model.ChessBoard.FEN;
-using ChessMemoryAppRemastered.Model.ChessBoard.Game;
-using ChessMemoryAppRemastered.Model.Courses;
-using ChessMemoryAppRemastered.Model.Mnemomics;
+﻿using JChessLib.Courses;
 using System.Text.RegularExpressions;
+using ChessMemoryAppRemastered.Model;
 
 namespace ChessMemoryAppRemastered;
 
 public partial class ChaptersPage : ContentPage
 {
-    private Course course;
-    private Chapter chapter;
+    private Course? course;
+    private Chapter? chapter;
 
     public ChaptersPage()
     {
@@ -36,12 +33,12 @@ public partial class ChaptersPage : ContentPage
                 variationsLayout.Children.RemoveAt(i);
         }
 
-        course = await Course.CreateInstanceFromJson("The Grand Ruy Lopez");
+        course = await CourseHelper.CreateInstanceFromJson("The Grand Ruy Lopez");
         Title = course.Name;
-        //course.UpdateFens();
+        //CourseHelper.UpdateFens(course);
 
-        var sordedList = course.Chapters.OrderBy(x => Regex.Replace(x.Value.Name.ToLower(), "[0-9]", ""));
-        foreach (var chapter in course.Chapters)
+        var sordedList = course.Chapters!.OrderBy(x => Regex.Replace(x.Value.Name.ToLower(), "[0-9]", ""));
+        foreach (var chapter in course.Chapters!)
         {
             var button = new Button()
             {
@@ -60,7 +57,7 @@ public partial class ChaptersPage : ContentPage
 
     private async void Chapter_Button_Clicked(object? sender, EventArgs e)
     {
-        var clickedButton = (Button)sender;
+        var clickedButton = sender as Button;
         chapter = course!.GetChapterByName(clickedButton!.Text)!;
         var parameters = new Dictionary<string, object>()
                 {

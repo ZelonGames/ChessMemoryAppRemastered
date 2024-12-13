@@ -1,13 +1,8 @@
-﻿using ChessMemoryAppRemastered.Model.ChessBoard.FEN;
-using ChessMemoryAppRemastered.Model.ChessBoard.Game;
+﻿using JChessLib.FEN;
 using ChessMemoryAppRemastered.Model;
-using ChessMemoryAppRemastered.Model.ChessBoard;
-using System.Security.Cryptography.X509Certificates;
+using JChessLib;
 using ChessMemoryAppRemastered.Model.UI_Components;
 using ChessMemoryAppRemastered.Model.UI_Integration;
-using ChessMemoryAppRemastered.Model.ChessBoard.Pieces;
-using System.Collections.Immutable;
-using System.IO;
 
 namespace ChessMemoryAppRemastered
 {
@@ -16,8 +11,8 @@ namespace ChessMemoryAppRemastered
         private ChessBoardState? previousChessBoardState = null;
         private ChessBoardState chessBoard;
         private UIChessBoard? uIChessBoard;
-        private UIPieceIntegration pieceIntegration;
-        private UIPieceMover pieceMover;
+        private UIPieceIntegration? pieceIntegration;
+        private UIPieceMover? pieceMover;
 
         private int currentMove = 0;
 
@@ -96,7 +91,7 @@ namespace ChessMemoryAppRemastered
             previousChessBoardState = chessBoard;
             chessBoard = nextChessBoardState;
             uIChessBoard!.ReloadPieces(nextChessBoardState);
-            pieceIntegration.Dispose();
+            pieceIntegration!.Dispose();
             pieceIntegration = new UIPieceIntegration(uIChessBoard);
         }
     }

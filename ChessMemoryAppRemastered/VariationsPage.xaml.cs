@@ -1,9 +1,9 @@
-using ChessMemoryAppRemastered.Model.Courses;
+using JChessLib.Courses;
 
 namespace ChessMemoryAppRemastered;
 
-[QueryProperty(nameof(Model.Courses.Course), "course")]
-[QueryProperty(nameof(Model.Courses.Chapter), "chapter")]
+[QueryProperty(nameof(JChessLib.Courses.Course), "course")]
+[QueryProperty(nameof(JChessLib.Courses.Chapter), "chapter")]
 public partial class VariationsPage : ContentPage
 {
     public Course? Course { get; set; }
@@ -21,7 +21,7 @@ public partial class VariationsPage : ContentPage
         Title = Chapter!.Name;
 
         variationsLayout.Clear();
-        foreach (var variation in Chapter.Variations)
+        foreach (var variation in Chapter.Variations!)
         {
             var button = new Button()
             {

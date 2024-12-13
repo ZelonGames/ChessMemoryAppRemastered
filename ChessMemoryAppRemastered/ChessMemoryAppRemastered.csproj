@@ -38,6 +38,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+    <WindowsAppSdkDeploymentManagerInitialize>false</WindowsAppSdkDeploymentManagerInitialize>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -61,7 +62,6 @@
 	<ItemGroup>
 	  <None Remove="Resources\Raw\chessMnemonicsNotations.json" />
 	  <None Remove="Resources\Raw\Courses\Lifetime Repertoires Chebanenko Slav.json" />
-	  <None Remove="Resources\Raw\Courses\Lifetime Repertoires Gajewski's 1. e4 − Part 2 Old.json" />
 	  <None Remove="Resources\Raw\Courses\Lifetime Repertoires Gajewski's 1. e4 − Part 2.json" />
 	  <None Remove="Resources\Raw\Courses\Lifetime Repertoires Kan Sicilian.json" />
 	  <None Remove="Resources\Raw\Courses\Outfox the Stafford Gambit.json" />
@@ -89,6 +89,12 @@
 	  <MauiImage Include="Resources\Images\Pieces\queen_white.png" />
 	  <MauiImage Include="Resources\Images\Pieces\rook_black.png" />
 	  <MauiImage Include="Resources\Images\Pieces\rook_white.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="JChessLib">
+	    <HintPath>..\..\JChessLib\JChessLib\bin\Debug\net8.0\JChessLib.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>

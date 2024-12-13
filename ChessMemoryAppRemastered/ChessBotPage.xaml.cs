@@ -1,25 +1,24 @@
 using ChessMemoryAppRemastered.Model;
-using ChessMemoryAppRemastered.Model.ChessBoard;
-using ChessMemoryAppRemastered.Model.ChessBoard.FEN;
-using ChessMemoryAppRemastered.Model.ChessBoard.Game;
+using JChessLib;
+using JChessLib.FEN;
 using ChessMemoryAppRemastered.Model.ChessBot;
-using ChessMemoryAppRemastered.Model.Courses;
+using JChessLib.Courses;
 using ChessMemoryAppRemastered.Model.Mnemomics;
 using ChessMemoryAppRemastered.Model.UI_Components;
 using ChessMemoryAppRemastered.Model.UI_Integration;
 
 namespace ChessMemoryAppRemastered;
 
-[QueryProperty(nameof(Model.Courses.Course), "course")]
+[QueryProperty(nameof(JChessLib.Courses.Course), "course")]
 public partial class ChessBotPage : ContentPage
 {
     private ChessBoardState chessBoard;
     private UIChessBoard? uIChessBoard;
-    private UIPieceIntegration pieceIntegration;
-    private UIPieceMover pieceMover;
-    private UISquareSelectionTracker squareSelectionTracker;
+    private UIPieceIntegration? pieceIntegration;
+    private UIPieceMover? pieceMover;
+    private UISquareSelectionTracker? squareSelectionTracker;
     public Course? Course { get; set; }
-    private MnemonicsWordGenerator mnemonicsWordGenerator = new();
+    private MnemonicsWordGenerator? mnemonicsWordGenerator = new();
     private VariationMoveSelector? variationMoveSelector;
 
     public ChessBotPage()
@@ -47,7 +46,7 @@ public partial class ChessBotPage : ContentPage
 
     private void LoadBoard()
     {
-        chessBoard = ChessBoardFenGenerator.Generate(Course!.PreviewFen);
+        chessBoard = ChessBoardFenGenerator.Generate(Course!.PreviewFen!);
         uIChessBoard = new UIChessBoard(absoluteLayoutChessBoard, chessBoard);
 
         UpdateChessBoardPosition(Width, Height);
@@ -67,7 +66,7 @@ public partial class ChessBotPage : ContentPage
         if (oldChessboard == chessBoard)
             return;
 
-        await mnemonicsWordGenerator.AddWordFromMove(variationMoveSelector.LastMovePlayed!.Value);
+        await mnemonicsWordGenerator!.AddWordFromMove(variationMoveSelector.LastMovePlayed!.Value);
         UpdateMnemonicsText();
         uIChessBoard!.ReloadPieces(chessBoard);
     }
@@ -81,7 +80,7 @@ public partial class ChessBotPage : ContentPage
         chessBoard = variationNavigator.GetPreviousState(chessBoard);
 
         uIChessBoard!.ReloadPieces(chessBoard);
-        mnemonicsWordGenerator.TryRemoveLastWord();
+        mnemonicsWordGenerator!.TryRemoveLastWord();
         UpdateMnemonicsText();
     }
 
@@ -105,6 +104,6 @@ public partial class ChessBotPage : ContentPage
 
     private void UpdateMnemonicsText()
     {
-        lblWordMove.Text = mnemonicsWordGenerator.LastWord;
+        lblWordMove.Text = mnemonicsWordGenerator!.LastWord;
     }
 }
